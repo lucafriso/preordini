@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   
+   <link rel="stylesheet" href="preordini_lib/jquery/jquery.mobile-1.4.5.min.css">
+   <link rel="stylesheet" href="preordini_lib/themes/color-theme.min.css" />
+   <link rel="stylesheet" href="preordini_lib/themes/jquery.mobile.icons.min.css" />
+   <link rel="stylesheet" href="preordini_lib/util/css.css" />
+   
+   <script src="preordini_lib/jquery/jquery-1.11.3.min.js"></script>
+   <script src="preordini_lib/jquery/jquery.mobile-1.4.5.min.js"></script>
+   <script src="preordini_lib/jquery/jquery.cookie.js"></script>
+
+   <script src="preordini_lib/qrcode/jquery.min.js" type="text/javascript"></script>
+   <script src="preordini_lib/qrcode/qrcode.js"></script>
+   <script src="preordini_lib/qrcode/qrcodemanager.js"></script>
+   
+   <script src="preordini_lib/util/data.js"></script>
+   <script src="preordini_lib/util/hashmap.js"></script>
+   <script src="preordini_lib/util/graphicManager.js"></script>
+   <script src="preordini_lib/util/main.js"></script>
+</head>
+<body>
+
+<div data-role="page" data-theme="b" id="pageprinc">
+   <div data-role="header">
+      <h1>Men&ugrave;</h1>
+   </div>
+
+   <div data-role="main" class="ui-content">
+      
+      <div id="lista" data-role="collapsible-set">
+      </div>
+      
+      <button class="ui-btn green-btn" id="resoconto-btn">Vedi resoconto</button>
+      <button class="ui-btn red-btn" id="elimina-ordine-btn">Elimina ordine</button>
+   </div>
+
+   <div data-role="footer">
+      <h4>Giovani di dese</h4>
+   </div>
+
+   <div data-role="popup" id="popup-ordine" data-position-to="window" data-transition="pop">
+      <div data-role="header">
+         <h1 id="title-popup">
+         </h1>
+      </div>
+
+      <div data-role="main" class="ui-content" id="content-ordine-popup">
+         <div id="info-ordine-popup">
+         </div>
+      </div>
+   </div>
+</div> 
+
+<div data-role="page" data-theme="b" id="pageres">
+   <div data-role="header">
+      <h1>Riepilogo Ordine</h1>
+   </div>
+  
+   <div data-role="main" class="ui-content">
+      <div id="resoconto">
+      </div>
+      
+      <button class="ui-btn red-btn" id="modifica-btn">Modifica Ordine</button><!--ui-btn-inline-->
+      <button class="ui-btn green-btn" id="conferma-btn">Conferma Ordine</button><!--ui-btn-inline--> 
+   </div>
+
+   <div data-role="footer">
+      <h4>Giovani di dese</h4>
+   </div>
+</div>
+
+<div data-role="page" data-theme="b" id="pageqrcode">
+   <div data-role="header">
+      <h1>Ordine</h1>
+   </div>
+
+   <div data-role="main" class="ui-content" id="content-qrcode">
+      <h4>Presenta questo alla cassa e il tuo ordine sar&agrave; pronto</h4>
+
+      <div id="qrcode">
+      </div>
+
+      <button class="ui-btn blue-btn" id="nuovo-ordine-btn">Nuovo Ordine</button>
+
+      <!--
+      <svg id="qrcode-container">
+      <g id="qrcode"/>
+      </svg>
+      -->
+   </div>
+
+   <div data-role="footer">
+      <h4>Giovani di dese</h4>
+   </div>
+</div>
+
+
+</body>
+</html>
