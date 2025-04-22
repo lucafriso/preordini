@@ -10,8 +10,10 @@ function caricaMenuDaFile(callback) {
         .then(menu => {
             for (let categoria in menu) {
                 if (menu.hasOwnProperty(categoria)) {
+                    const pietanze = Array.isArray(menu[categoria]) ? menu[categoria] : [];
+
                     elencoPrincipale.push(categoria);
-                    elencoPietanze[categoria] = menu[categoria];
+                    elencoPietanze[categoria] = pietanze;
                     categorie.push({ id: categoria.toLowerCase().replace(/\s+/g, "_"), descrizione: categoria });
                 }
             }
@@ -19,6 +21,7 @@ function caricaMenuDaFile(callback) {
         })
         .catch(err => console.error("Errore nel caricamento del menu:", err));
 }
+
 
 
 
