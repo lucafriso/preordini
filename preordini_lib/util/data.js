@@ -5,7 +5,7 @@ var elencoPietanze = [];
 
 // Nuova funzione che carica i dati direttamente da menu.json
 function caricaMenuDaFile() {
-    fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
+    return fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
         .then(response => response.json())
         .then(menu => {
             for (var categoria in menu) {
@@ -15,9 +15,9 @@ function caricaMenuDaFile() {
                     categorie.push({ id: categoria.toLowerCase().replace(/\s+/g, "_"), descrizione: categoria });
                 }
             }
-        })
-        .catch(error => console.error("Errore nel caricamento del menu:", error));
+        });
 }
+
 
 // Carica il menu locale al posto delle chiamate REST
 caricaMenuDaFile();

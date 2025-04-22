@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
    const dataManager = new Data();
  
    // Caricamento iniziale del menu
-   loadJsonMenu(() => {
+   caricaMenuDaFile().then(() => {
      initPagePrinc();
      initPageRes();
      initPageQrCode();
