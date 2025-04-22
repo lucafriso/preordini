@@ -84,4 +84,12 @@ function Data(){
             coperti
         );
     }
+
+    this.getElencoPrincipale = function() {
+        return elencoPrincipale;
+    }
+
+    this.getElencoPietanze = function() {
+        return elencoPietanze;
+    }
 }
