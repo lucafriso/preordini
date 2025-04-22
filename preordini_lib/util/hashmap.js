@@ -1,198 +1,133 @@
-function HashMap(){
+function HashMap() {
    this.value = [];
-   
-   /**
-      verifica se la mappa e' vuota
-      @return true se la mappa e' vuota, false altrimenti
-   */
-   this.isEmpty = function(){
-      return this.value.length == 0;
+
+   this.isEmpty = function () {
+      return this.value.length === 0;
    };
 
-   /**
-      restituisce il numero di elementi contenuti nella mappa
-      @return numero di elementi contenuti nella mappa
-   */
-   this.size = function(){
+   this.size = function () {
       return this.value.length;
    };
 
-   /**
-      restituisce il valore associato alla chiave specificata
-      @param key la chiave associata al valore da restituire
-      @return il valore associato alla chiave specificata, se presente,
-              null se l'associazione non e' presente
-      @throws IllegalArgumentException se key vale null
-   */
-   this.get = function(key){
-      var value = this.remove(parseInt(key));
-      if(value == undefined){
-         return undefined;
-      }
-      this.put(parseInt(key), value);
-      return value;
-   }
+   this.get = function (key) {
+      if (key == null) throw new Error("IllegalArgumentException: key is null");
+      var pos = binarySearch(this.value, parseInt(key));
+      if (pos < 0) return null;
+      return this.value[pos].getValue();
+   };
 
-   /**
-      inserisce l'associazione key/value nella mappa. Se la chiave e' gia'
-      presente, sostituisce l'associazione e restituisce il valore
-      precedentemente associato alla chiave
-      @param key la chiave
-      @param value il valore da associare alla chiave
-      @return il valore precedentemente associato alla chiave specificata, se
-              presente, null se la chiave non e' gia' presente
-      @throws IllegalArgumentException se key o value valgono null
-   */
-   this.put = function(key, value){
-      /*var pos = binarySearch(this.value, key);
-      if(pos >= 0)
-         return;*/
-      this.remove(parseInt(key));
-      var entry = new Entry(parseInt(key), value);
-      this.value[this.value.length] = entry;
-      mergeSort(this.value);
-      return entry.getValue();
-   }
-   
-   /**
-      elimina l'associazione con la chiave specificata
-      @param key la chiave dell'associazione da eliminare
-      @return il valore associato alla chiave specificata, se
-              presente, null se la chiave non e' presente
-      @throws IllegalArgumentException se key vale null
-   */
-   this.remove = function(key){
-      var pos = binarySearch(this.value, parseInt(key));
-      if(pos < 0){
-         return undefined;
+   this.put = function (key, val) {
+      if (key == null || val == null) throw new Error("IllegalArgumentException: key or value is null");
+      key = parseInt(key);
+      val = parseInt(val);
+
+      var pos = binarySearch(this.value, key);
+      var oldVal = null;
+
+      if (pos >= 0) {
+         oldVal = this.value[pos].getValue();
+         this.value[pos].setValue(val);
+      } else {
+         var entry = new Entry(key, val);
+         this.value.push(entry);
+         mergeSort(this.value);
       }
+
+      return oldVal;
+   };
+
+   this.remove = function (key) {
+      if (key == null) throw new Error("IllegalArgumentException: key is null");
+      key = parseInt(key);
+
+      var pos = binarySearch(this.value, key);
+      if (pos < 0) return null;
       var val = this.value[pos].getValue();
-      this.value.splice(pos,1);
+      this.value.splice(pos, 1);
       return val;
-   }
-   
-   /**
-      svuota l'hashmap.
-   */
-   this.makeEmpty = function(){
+   };
+
+   this.makeEmpty = function () {
       this.value = [];
-   }
-   
-   
-   /**
-      cerca un elemento e dice se è contenuto.
-      @return true se lo trova, altrimenti false
-   */
-   this.contains = function(key){
-      var pos = binarySearch(this.value, parseInt(key));
+   };
+
+   this.contains = function (key) {
+      if (key == null) throw new Error("IllegalArgumentException: key is null");
+      key = parseInt(key);
+      var pos = binarySearch(this.value, key);
       return pos >= 0;
-   }
-   
-   /**
-      restituisce un array contenente le chiavi della mappa.
-      @return array  contenente tutte le chiavi della mappa
-   */
-   this.keys = function(){
-      var objs = [];
-      for(var i = 0; i < this.value.length; i++)
-         objs[objs.length] = parseInt(this.value[i].getKey());
-      //alert(objs);
-      return objs;
-   }
-   
-   /**
-      restituisce un array contenente tutti i valori della della mappa.
-      @return array contenente tutti i valori della della mappa
-   */
-   this.toArray = function(){
-      var objs = [];
-      var allKeys = this.keys();
-      for(var i = 0; i < allKeys.length; i++)
-         objs[objs.length] = this.get(parseInt(allKeys[i]));
-      return objs;
-   }
-   
-   function mergeSort(a){
-      if(a.length == 1)
-         return;
-      var mid = a.length / 2;
+   };
+
+   this.keys = function () {
+      return this.value.map(entry => entry.getKey());
+   };
+
+   this.toArray = function () {
+      return this.value.map(entry => entry.getValue());
+   };
+
+   // Funzioni ausiliarie interne
+   function mergeSort(a) {
+      if (a.length <= 1) return;
+      var mid = Math.floor(a.length / 2);
       var left = a.slice(0, mid);
-      var right = a.slice(mid, a.length);
+      var right = a.slice(mid);
       mergeSort(left);
       mergeSort(right);
       merge(a, left, right);
    }
-   
-   function merge(a, b, c){
-      var ia = 0, ib = 0, ic = 0;
-      while(ib < b.length && ic < c.length){
-         if(b[ib].getKey() < c[ic].getKey())
-            a[ia++] = b[ib++];
-         else
-            a[ia++] = c[ic++];
+
+   function merge(a, b, c) {
+      var i = 0, j = 0, k = 0;
+      while (j < b.length && k < c.length) {
+         if (b[j].getKey() < c[k].getKey()) {
+            a[i++] = b[j++];
+         } else {
+            a[i++] = c[k++];
+         }
       }
-      while(ib < b.length)
-         a[ia++] = b[ib++];
-      while(ic < c.length)
-         a[ia++] = c[ic++];
+      while (j < b.length) a[i++] = b[j++];
+      while (k < c.length) a[i++] = c[k++];
    }
-   
+
    function binarySearch(array, searchElement) {
-      var minIndex = 0;
-      var maxIndex = array.length - 1;
-      var currentIndex;
-      var currentElement;
-      while (minIndex <= maxIndex) {
-         currentIndex = (minIndex + maxIndex) / 2 | 0;
-         currentElement = array[currentIndex];
-         if (currentElement.getKey() < searchElement)
-            minIndex = currentIndex + 1;
-         else if (currentElement.getKey() > searchElement)
-            maxIndex = currentIndex - 1;
-         else
-            return currentIndex;
+      var low = 0, high = array.length - 1;
+      while (low <= high) {
+         var mid = Math.floor((low + high) / 2);
+         var midKey = array[mid].getKey();
+         if (midKey < searchElement) {
+            low = mid + 1;
+         } else if (midKey > searchElement) {
+            high = mid - 1;
+         } else {
+            return mid;
+         }
       }
       return -1;
    }
-   
-   function Entry(k, v){
+
+   function Entry(k, v) {
       this.key = k;
-      this.val = parseInt(v);
-      
-      this.getKey = function(){
+      this.val = v;
+
+      this.getKey = function () {
          return this.key;
-      }
-      
-      this.getValue = function(){
-         return parseInt(this.val);
-      }
-      
-      this.setKey = function(k){
+      };
+
+      this.getValue = function () {
+         return this.val;
+      };
+
+      this.setKey = function (k) {
          this.key = k;
-      }
-      
-      this.setValue = function(v){
-         this.val = parseInt(v);
-      }
-      
-      this.getInfo = function(){
+      };
+
+      this.setValue = function (v) {
+         this.val = v;
+      };
+
+      this.getInfo = function () {
          return "(" + this.key + "," + this.val + ")";
-      }
-      /*
-      Entry.prototype.toString = function(){
-         return "(" + this.key + "," + this.val + ")";
-      }*/
+      };
    }
-   /*
-   HashMap.prototype.toString = function(){
-      if(this.isEmpty()){
-         return "{}";
-      }
-      var str = "{";
-      var entries = this.value;
-      for(var i = 0; i < entries.length; i++){
-         str += entries[i] + ",";
-      }
-      return str.substring(0, str.length - 1) + "}";
-   }*/
 }
