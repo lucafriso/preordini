@@ -8,16 +8,19 @@ function caricaMenuDaFile(callback) {
     fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
         .then(response => response.json())
         .then(menu => {
-            for (var categoria in menu) {
+            for (let categoria in menu) {
                 if (menu.hasOwnProperty(categoria)) {
                     elencoPrincipale.push(categoria);
                     elencoPietanze[categoria] = menu[categoria];
                     categorie.push({ id: categoria.toLowerCase().replace(/\s+/g, "_"), descrizione: categoria });
                 }
             }
-            if (callback) callback();
-        });
+            if (typeof callback === "function") callback();
+        })
+        .catch(err => console.error("Errore nel caricamento del menu:", err));
 }
+
+
 
 
 
