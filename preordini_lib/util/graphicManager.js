@@ -99,7 +99,7 @@ function GraphicManager() {
            if (pietanza) {
                txtResoconto += `
                   <div class="content-pietanza-ordine">
-                     <div class="left nome-pietanza">${pietanza.piatto}</div>
+                     <div class="left nome-pietanza">${pietanza.nome}</div>
                      <div class="center prezzo-pietanza-ordine">${(pietanza.prezzo * quantita).toFixed(2)}€</div>
                      <div class="right">${quantita}</div>
                      <div class="endBlock"></div>
