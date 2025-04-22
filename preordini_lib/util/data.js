@@ -18,46 +18,14 @@ function popolaTipologie() {
 		 
       }
    });
-} 
-
-/*
-   function popolaTipologie() {
-      $.ajax({
-          url: "https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json",
-          dataType: "json",
-          success: function(data) {
-              categorie = data;
-  
-              // Ricava le categorie uniche
-              elencoPrincipale = [...new Set(data.map(item => item.categoria))];
-  
-              // Esempio: aggiunta delle categorie a una select (opzionale)
-              let select = document.getElementById("selectCategorie");
-              if (select) {
-                  select.innerHTML = "";
-                  elencoPrincipale.forEach(cat => {
-                      let option = document.createElement("option");
-                      option.value = cat;
-                      option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1); // Capitalizza
-                      select.appendChild(option);
-                  });
-              }
-  
-              console.log("Categorie trovate:", elencoPrincipale);
-          },
-          error: function(err) {
-              console.error("Errore nel caricamento del menu:", err);
-          }
-      });
-  } 
-  */
+}
 
 
 
 popolaTipologie();
 
 
-/*
+
 function popolaArticoli() {
 	for (var i=0; i<categorie.length; i++){
 	$.ajax({
@@ -77,7 +45,7 @@ function popolaArticoli() {
 }
 
 popolaArticoli();
-*/
+	
 
 
 function Data(){
@@ -127,7 +95,7 @@ function Data(){
       );
    }
    
-   var rootURL = "https://raw.githubusercontent.com/lucafriso/preordini/";
+   var rootURL = "/rest/";
    
 
 	
