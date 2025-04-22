@@ -97,6 +97,4 @@ function Data(){
    
    var rootURL = "/rest/";
    
-
-	
 }
