@@ -40,12 +40,17 @@ function Data() {
 
     this.getInstanceHashmap = function () {
         function recreateHashmap(value) {
-            var hashmap = new HashMap();
-            for (var i = 0; i < value.length; i++) {
-                hashmap.put(value[i].key, value[i].val);
+            const hashmap = new HashMap();
+            for (let i = 0; i < value.length; i++) {
+               const key = value[i].key;
+               const val = value[i].val;
+               if (key != null && val != null) {
+                  hashmap.put(key, val);
+               }
             }
             return hashmap;
-        }
+         }
+         
 
         var hashmap = localStorage.getItem(riferimentoHashMap);
         if (hashmap) {
