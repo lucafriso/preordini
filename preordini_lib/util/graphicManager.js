@@ -54,7 +54,7 @@ function GraphicManager() {
                const quantita = hashmap.contains(pietanza.id) ? hashmap.get(pietanza.id) : 0;
                txtLista += `
                    <div class="content-pietanza-ordine">
-                       <div class="left nome-pietanza">${pietanza.piatto}</div>
+                       <div class="left nome-pietanza">${pietanza.nome}</div>
                        <div class="center prezzo-pietanza-ordine">${pietanza.prezzo.toFixed(2)}€</div>
                        <div class="right">
                            <button class="minus-btn" id="minus${pietanza.id}">-</button>
