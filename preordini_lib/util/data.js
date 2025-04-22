@@ -8,7 +8,7 @@ var elencoPietanze = [];
 
 function popolaTipologie() {
     $.ajax({
-      url: "https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json",  	  
+      url: "rest/tipologie",  	  
       async: false,
       success: function(data) {
          categorie = data; 
