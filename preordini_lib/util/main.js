@@ -1,90 +1,63 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const graphicManager = new GraphicManager();
   const dataManager = new Data();
-
-  caricaMenuDaFile()
-     .then(() => {
-        navigateTo("pageprinc");
-
-        document.getElementById("resoconto-btn").addEventListener("click", (e) => {
-           e.preventDefault();
-           const hashmap = dataManager.getInstanceHashmap();
-           if (hashmap.isEmpty()) {
-              graphicManager.generatePopup("popup-ordine", { value: false });
-              openPopup("popup-ordine");
-           } else {
-              dataManager.saveInstanceHashmap(hashmap);
-              navigateTo("pageres");
-           }
-        });
-
-        document.getElementById("elimina-ordine-btn").addEventListener("click", (e) => {
-           e.preventDefault();
-           const dataElimina = { value: true, state: 0 };
-           let hashmap = dataManager.getInstanceHashmap();
-
-           if (!hashmap.isEmpty()) {
-              dataElimina.state = 1;
-              hashmap.makeEmpty();
-              dataManager.saveInstanceHashmap(hashmap);
-              hashmap = dataManager.getInstanceHashmap();
-
-              const elencoPrincipale = dataManager.getElencoPrincipale();
-              const elencoPietanze = dataManager.getElencoPietanze();
-
-              elencoPrincipale.forEach(categoria => {
-                 const pietanze = elencoPietanze[categoria] || [];
-                 pietanze.forEach(pietanza => {
-                    const id = pietanza.id;
-                    const quantita = hashmap.contains(id) ? hashmap.get(id) : 0;
-                    const quantitaHtml = document.getElementById("quantita" + id);
-                    if (quantitaHtml) quantitaHtml.textContent = quantita;
-                 });
-              });
-           }
-
-           graphicManager.generatePopup("popup-ordine", dataElimina);
-           openPopup("popup-ordine");
-        });
-
-        document.getElementById("modifica-btn").addEventListener("click", (e) => {
-           e.preventDefault();
-           navigateTo("pageprinc");
-        });
-
-        document.getElementById("conferma-btn").addEventListener("click", (e) => {
-           e.preventDefault();
-           navigateTo("pageqrcode");
-        });
-
-        document.getElementById("nuovo-ordine-btn").addEventListener("click", (e) => {
-           e.preventDefault();
-           dataManager.saveInstanceHashmap(new HashMap());
-           navigateTo("pageprinc");
-        });
-
-     })
-     .catch(error => {
-        console.error("Errore nel caricamento del menu:", error);
-     });
-});
-
-// Funzione per gestire la visualizzazione delle pagine
-function navigateTo(id) {
-  const pages = document.querySelectorAll("[data-role='page']");
-  pages.forEach(page => page.style.display = "none");
-  document.getElementById(id).style.display = "block";
-
   const graphicManager = new GraphicManager();
-  const dataManager = new Data();
 
-  if (id === "pageprinc") {
+  // Navigazione semplice tra pagine
+  function navigateTo(pageId) {
+     document.querySelectorAll("[data-role='page']").forEach(p => p.style.display = 'none');
+     document.getElementById(pageId).style.display = 'block';
+  }
+
+  // Mostra popup semplice
+  function showPopup(message) {
+     const title = document.getElementById("title-popup");
+     const content = document.getElementById("info-ordine-popup");
+     title.textContent = "Attenzione";
+     content.innerHTML = `<p>${message}</p>`;
+     document.getElementById("popup-ordine").style.display = 'block';
+     setTimeout(() => {
+        document.getElementById("popup-ordine").style.display = 'none';
+     }, 3000);
+  }
+
+  // Caricamento iniziale
+  dataManager.loadJsonMenu().then(() => {
+     navigateTo("pageprinc");
+     renderMenuPage();
+  }).catch(error => {
+     console.error("Errore nel caricamento del menu:", error);
+  });
+
+  // Gestione pagina menu
+  function renderMenuPage() {
      const lista = document.getElementById("lista");
      lista.innerHTML = graphicManager.generateMenu(dataManager.getInstanceHashmap());
      graphicManager.setButtonPlusMinus(dataManager.getInstanceHashmap());
+
+     document.getElementById("resoconto-btn").addEventListener("click", () => {
+        const hashmap = dataManager.getInstanceHashmap();
+        if (hashmap.isEmpty()) {
+           showPopup("Il tuo ordine è vuoto. Seleziona almeno una pietanza.");
+        } else {
+           dataManager.saveInstanceHashmap(hashmap);
+           renderResocontoPage();
+           navigateTo("pageres");
+        }
+     });
+
+     document.getElementById("elimina-ordine-btn").addEventListener("click", () => {
+        const hashmap = dataManager.getInstanceHashmap();
+        if (!hashmap.isEmpty()) {
+           hashmap.makeEmpty();
+           dataManager.saveInstanceHashmap(hashmap);
+           renderMenuPage();
+        }
+        showPopup("Ordine eliminato.");
+     });
   }
 
-  if (id === "pageres") {
+  // Gestione pagina resoconto
+  function renderResocontoPage() {
      const hashmap = dataManager.getInstanceHashmap();
      if (hashmap.isEmpty()) {
         navigateTo("pageprinc");
@@ -98,15 +71,20 @@ function navigateTo(id) {
      };
 
      document.getElementById("resoconto").innerHTML = graphicManager.generateResoconto(hashmap, dict);
+
+     document.getElementById("modifica-btn").addEventListener("click", () => {
+        navigateTo("pageprinc");
+     });
+
+     document.getElementById("conferma-btn").addEventListener("click", () => {
+        renderQRCodePage();
+        navigateTo("pageqrcode");
+     });
   }
 
-  if (id === "pageqrcode") {
+  // Gestione pagina QRCode
+  function renderQRCodePage() {
      const hashmap = dataManager.getInstanceHashmap();
-     if (hashmap.isEmpty()) {
-        navigateTo("pageprinc");
-        return;
-     }
-
      const nomecliente = document.getElementById("nomecliente").value;
      const numerotavolo = document.getElementById("tavolo").value;
      const numerocoperti = document.getElementById("coperti").value;
@@ -115,12 +93,16 @@ function navigateTo(id) {
         numeroTavolo: numerotavolo,
         cliente: nomecliente,
         coperti: numerocoperti,
-        righe: hashmap.keys().map(id => ({ id: parseInt(id), qta: hashmap.get(id) }))
+        righe: hashmap.keys().map(id => ({
+           id: parseInt(id),
+           qta: hashmap.get(id)
+        }))
      };
 
      const encoded = encodeURIComponent(JSON.stringify(obj));
-
-     const qrcode = new QRCode(document.getElementById("qrcode"), {
+     const qrContainer = document.getElementById("qrcode");
+     qrContainer.innerHTML = "";
+     const qrcode = new QRCode(qrContainer, {
         width: 100,
         height: 100,
         useSVG: true
@@ -129,16 +111,11 @@ function navigateTo(id) {
      const qrCodeManager = new QRCodeManager(qrcode);
      qrCodeManager.clear();
      qrCodeManager.makeQRCode(encoded);
-  }
-}
 
-// Per gestire la visualizzazione dei popup in modo compatibile
-function openPopup(id) {
-  const el = document.getElementById(id);
-  if (el) {
-     el.style.display = "block";
-     setTimeout(() => {
-        el.style.display = "none";
-     }, 3000);
+     document.getElementById("nuovo-ordine-btn").addEventListener("click", () => {
+        dataManager.saveInstanceHashmap(new HashMap());
+        renderMenuPage();
+        navigateTo("pageprinc");
+     });
   }
-}
+});
