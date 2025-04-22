@@ -5,19 +5,39 @@ var elencoPietanze = [];
 
 // Nuova funzione che carica i dati direttamente da menu.json
 function caricaMenuDaFile() {
-    $.getJSON("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json", function(menu) {
-        for (var categoria in menu) {
-            if (menu.hasOwnProperty(categoria)) {
-                elencoPrincipale.push(categoria);
-                elencoPietanze[categoria] = menu[categoria];
-                categorie.push({ id: categoria.toLowerCase().replace(/\s+/g, "_"), descrizione: categoria });
+    fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
+        .then(response => response.json())
+        .then(menu => {
+            for (var categoria in menu) {
+                if (menu.hasOwnProperty(categoria)) {
+                    elencoPrincipale.push(categoria);
+                    elencoPietanze[categoria] = menu[categoria];
+                    categorie.push({ id: categoria.toLowerCase().replace(/\s+/g, "_"), descrizione: categoria });
+                }
             }
-        }
-    });
+        })
+        .catch(error => console.error("Errore nel caricamento del menu:", error));
 }
 
 // Carica il menu locale al posto delle chiamate REST
 caricaMenuDaFile();
+
+// Gestione cookie con Vanilla JS
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (let i = 0; i < cookies.length; i++) {
+        const [cookieName, cookieVal] = cookies[i].split("=");
+        if (cookieName === name) {
+            return decodeURIComponent(cookieVal);
+        }
+    }
+    return null;
+}
+
+function setCookie(name, value, days = 365) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + expires + "; path=/";
+}
 
 function Data(){
     var riferimentoHashMap = "_hashmap"; 
@@ -32,7 +52,7 @@ function Data(){
             return hashmap;
         }
 
-        var hashmap = $.cookie(riferimentoHashMap);
+        var hashmap = getCookie(riferimentoHashMap);
         if(typeof hashmap !== 'undefined' && hashmap !== null){  //esiste
             return recreateHashmap(JSON.parse(hashmap).value);
         } else {
@@ -43,14 +63,14 @@ function Data(){
     }
 
     this.saveInstanceHashmap = function(hashmap){
-        $.cookie(
+        setCookie(
             riferimentoHashMap,
             JSON.stringify(hashmap)
         );
     }
 
     this.getInstanceCoperti = function(){
-        var coperti = $.cookie(riferimentoCoperti);
+        var coperti = getCookie(riferimentoCoperti);
         if(typeof coperti !== 'undefined' && coperti !== null){
             return parseInt(coperti);
         } else {
@@ -59,11 +79,9 @@ function Data(){
     }
 
     this.saveInstanceCoperti = function(coperti){
-        $.cookie(
+        setCookie(
             riferimentoCoperti,
             coperti
         );
     }
-
-    // rootURL rimosso: non serve più
 }

@@ -1,8 +1,6 @@
 function GraphicManager() {
-
    const dataManager = new Data();
 
-   // Aggiunge i pulsanti +/- alle pietanze
    this.setButtonPlusMinus = function(hashmap) {
       const elencoPrincipale = dataManager.getElencoPrincipale();
       const elencoPietanze = dataManager.getElencoPietanze();
@@ -10,64 +8,69 @@ function GraphicManager() {
       elencoPrincipale.forEach(tipo => {
          const pietanze = elencoPietanze[tipo] || [];
          pietanze.forEach(pietanza => {
-            $("#plus" + pietanza.id).click(function () {
-               const id = (this.id).substring("plus".length);
-               const quantitaHtml = $("#quantita" + id);
-               const quantita = parseInt(quantitaHtml.html()) + 1;
-               quantitaHtml.html(quantita + "");
-               hashmap.put(id, quantita);
-               dataManager.saveInstanceHashmap(hashmap);
-            });
+            const plusBtn = document.getElementById("plus" + pietanza.id);
+            const minusBtn = document.getElementById("minus" + pietanza.id);
+            const quantitaHtml = document.getElementById("quantita" + pietanza.id);
 
-            $("#minus" + pietanza.id).click(function () {
-               const id = (this.id).substring("minus".length);
-               const quantitaHtml = $("#quantita" + id);
-               const quantita = Math.max(parseInt(quantitaHtml.html()) - 1, 0);
-               quantitaHtml.html(quantita + "");
-               if (quantita > 0) {
-                  hashmap.put(id, quantita);
-               } else {
-                  hashmap.remove(id);
-               }
-               dataManager.saveInstanceHashmap(hashmap);
-            });
+            if (plusBtn && quantitaHtml) {
+               plusBtn.addEventListener("click", () => {
+                  const quantita = parseInt(quantitaHtml.innerHTML) + 1;
+                  quantitaHtml.innerHTML = quantita;
+                  hashmap.put(pietanza.id, quantita);
+                  dataManager.saveInstanceHashmap(hashmap);
+               });
+            }
+
+            if (minusBtn && quantitaHtml) {
+               minusBtn.addEventListener("click", () => {
+                  let quantita = Math.max(parseInt(quantitaHtml.innerHTML) - 1, 0);
+                  quantitaHtml.innerHTML = quantita;
+                  if (quantita > 0) {
+                     hashmap.put(pietanza.id, quantita);
+                  } else {
+                     hashmap.remove(pietanza.id);
+                  }
+                  dataManager.saveInstanceHashmap(hashmap);
+               });
+            }
          });
       });
    }
 
-   // Mostra popup per ordine vuoto o eliminato
+   // Popup semplificato (senza jQuery Mobile)
    this.generatePopup = function(id, dataElimina) {
       let info, title;
       const isElimina = dataElimina.value;
 
       if (isElimina) {
          title = "Elimina Ordine";
-         if (dataElimina.state == 0) {
-            info = "<p>Nessuna pietanza selezionata.</p><p>Per effettuare un ordine devi almeno selezionare una pietanza.</p>";
-         } else {
-            info = "<p>L'ordine &egrave; stato eliminato.</p><p>Le quantit&agrave; di tutte le pietanze sono state azzerate.</p>";
-         }
+         info = dataElimina.state === 0
+            ? "<p>Nessuna pietanza selezionata.</p><p>Per effettuare un ordine devi almeno selezionare una pietanza.</p>"
+            : "<p>L'ordine &egrave; stato eliminato.</p><p>Le quantit&agrave; di tutte le pietanze sono state azzerate.</p>";
       } else {
          title = "Ordine Vuoto";
-         info = "<p>Il tuo ordine &egrave; vuoto.</p><p>Devi almeno ordinare una pietanza</p><button class=\"ui-btn green-btn\" id=\"ordine-vuoto-btn\">Ok</button>"
+         info = "<p>Il tuo ordine &egrave; vuoto.</p><p>Devi almeno ordinare una pietanza</p><button class=\"ui-btn green-btn\" id=\"ordine-vuoto-btn\">Ok</button>";
       }
 
-      $("#title-popup").html(title);
-      $("#info-ordine-popup").html(info);
+      document.getElementById("title-popup").innerHTML = title;
+      document.getElementById("info-ordine-popup").innerHTML = info;
+
+      const popup = document.querySelector(id);
+      popup.classList.add("show-popup");
 
       if (!isElimina) {
-         $("#ordine-vuoto-btn").click(function () {
-            $(id).popup("close");
+         document.getElementById("ordine-vuoto-btn")?.addEventListener("click", () => {
+            popup.classList.remove("show-popup");
          });
       } else {
-         const timeout = setTimeout(() => $(id).popup("close"), 4500);
-         $(id).on({ popupafterclose: () => clearTimeout(timeout) });
-      }
+         const timeout = setTimeout(() => {
+            popup.classList.remove("show-popup");
+         }, 4500);
 
-      $(id).popup({ dismissible: isElimina });
+         popup.addEventListener("transitionend", () => clearTimeout(timeout), { once: true });
+      }
    }
 
-   // Genera resoconto ordine
    this.generateResoconto = function(hashmap, dict) {
       const elencoPrincipale = dataManager.getElencoPrincipale();
       const elencoPietanze = dataManager.getElencoPietanze();
@@ -110,7 +113,7 @@ function GraphicManager() {
       </div>`;
 
       const allKeys = hashmap.keys();
-      const allPietanze = allKeys.map(id => getPietanza(id)).filter(p => p !== undefined);
+      const allPietanze = allKeys.map(id => getPietanza(id)).filter(Boolean);
 
       allPietanze.sort((a, b) => a.pietanza.posizione - b.pietanza.posizione);
 
@@ -138,7 +141,6 @@ function GraphicManager() {
       return txtResoconto;
    }
 
-   // Genera il menu visivo
    this.generateMenu = function(hashmap) {
       const elencoPrincipale = dataManager.getElencoPrincipale();
       const elencoPietanze = dataManager.getElencoPietanze();

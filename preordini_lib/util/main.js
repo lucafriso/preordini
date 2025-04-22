@@ -1,144 +1,172 @@
-$(document).on("pagecreate", function (event) {
-   var graphicManager = new GraphicManager();
-   var dataManager = new Data();
-
-   // Carichiamo il menu JSON PRIMA di tutto
-   loadJsonMenu(function () {
-      // Ora che i dati sono pronti, possiamo agganciare gli eventi
-
-      $(document).on("pagebeforeshow", "#pageprinc", function () {
-         $("#lista").empty().append(
-            graphicManager.generateMenu(
-               dataManager.getInstanceHashmap()
-            )
-         ).collapsibleset();
-
-         $("#lista").trigger("create");
-
-         graphicManager.setButtonPlusMinus(
-            dataManager.getInstanceHashmap()
-         );
-
-         $("#resoconto-btn").off().click(function (evt) {
-            evt.stopImmediatePropagation();
-            evt.preventDefault();
-            var hashmap = dataManager.getInstanceHashmap();
-            if (hashmap.isEmpty()) {
-               graphicManager.generatePopup("#popup-ordine", { value: false });
-               $("#popup-ordine").popup("open");
-            } else {
-               dataManager.saveInstanceHashmap(hashmap);
-               $.mobile.pageContainer.pagecontainer("change", "#pageres", {});
-            }
-         });
-
-         $("#elimina-ordine-btn").off().click(function (evt) {
-            evt.stopImmediatePropagation();
-            evt.preventDefault();
-            var dataElimina = { value: true, state: 0 };
-
-            var hashmap = dataManager.getInstanceHashmap();
-            if (!hashmap.isEmpty()) {
-               dataElimina.state = 1;
-               hashmap.makeEmpty();
-               dataManager.saveInstanceHashmap(hashmap);
-               hashmap = dataManager.getInstanceHashmap();
-
-               var elencoPrincipale = dataManager.getElencoPrincipale();
-               var elencoPietanze = dataManager.getElencoPietanze();
-
-               for (var i = 0; i < elencoPrincipale.length; i++) {
-                  var pietanze = elencoPietanze[elencoPrincipale[i]];
-                  for (var j = 0; j < pietanze.length; j++) {
-                     var id = pietanze[j].id;
-                     var quantitaHtml = $("#quantita" + id);
-                     var quantita = hashmap.contains(id) ? hashmap.get(id) : 0;
-                     quantitaHtml.html(quantita + "");
-                  }
-               }
-            }
-
-            graphicManager.generatePopup("#popup-ordine", dataElimina);
-            $("#popup-ordine").popup("open");
-         });
-      });
-
-      $(document).on("pagebeforeshow", "#pageres", function () {
-         var hashmap = dataManager.getInstanceHashmap();
+document.addEventListener("DOMContentLoaded", () => {
+   const graphicManager = new GraphicManager();
+   const dataManager = new Data();
+ 
+   // Caricamento iniziale del menu
+   loadJsonMenu(() => {
+     initPagePrinc();
+     initPageRes();
+     initPageQrCode();
+ 
+     // Mostra la pagina iniziale
+     navigateTo("pageprinc");
+   });
+ 
+   function initPagePrinc() {
+     const page = document.getElementById("pageprinc");
+ 
+     page.addEventListener("showpage", () => {
+       const lista = document.getElementById("lista");
+       lista.innerHTML = graphicManager.generateMenu(dataManager.getInstanceHashmap());
+       enableCollapse(lista);
+       graphicManager.setButtonPlusMinus(dataManager.getInstanceHashmap());
+ 
+       document.getElementById("resoconto-btn").onclick = (evt) => {
+         evt.preventDefault();
+         const hashmap = dataManager.getInstanceHashmap();
+ 
          if (hashmap.isEmpty()) {
-            $.mobile.pageContainer.pagecontainer("change", "#pageprinc", {});
-            return;
+           graphicManager.generatePopup("#popup-ordine", { value: false });
+           document.getElementById("popup-ordine").classList.remove("hidden");
+         } else {
+           dataManager.saveInstanceHashmap(hashmap);
+           navigateTo("pageres");
          }
-
-         var dict = {
-            nomecliente: $('#nomecliente').val(),
-            coperti: $('#coperti').val(),
-            tavolo: $('#tavolo').val()
+       };
+ 
+       document.getElementById("elimina-ordine-btn").onclick = (evt) => {
+         evt.preventDefault();
+         const dataElimina = { value: true, state: 0 };
+         let hashmap = dataManager.getInstanceHashmap();
+ 
+         if (!hashmap.isEmpty()) {
+           dataElimina.state = 1;
+           hashmap.makeEmpty();
+           dataManager.saveInstanceHashmap(hashmap);
+           hashmap = dataManager.getInstanceHashmap();
+ 
+           const elencoPrincipale = dataManager.getElencoPrincipale();
+           const elencoPietanze = dataManager.getElencoPietanze();
+ 
+           elencoPrincipale.forEach(tipo => {
+             elencoPietanze[tipo].forEach(pietanza => {
+               const quantitaHtml = document.getElementById("quantita" + pietanza.id);
+               const quantita = hashmap.contains(pietanza.id) ? hashmap.get(pietanza.id) : 0;
+               quantitaHtml.innerHTML = quantita;
+             });
+           });
+         }
+ 
+         graphicManager.generatePopup("#popup-ordine", dataElimina);
+         document.getElementById("popup-ordine").classList.remove("hidden");
+       };
+     });
+   }
+ 
+   function initPageRes() {
+     const page = document.getElementById("pageres");
+ 
+     page.addEventListener("showpage", () => {
+       const hashmap = dataManager.getInstanceHashmap();
+ 
+       if (hashmap.isEmpty()) {
+         navigateTo("pageprinc");
+         return;
+       }
+ 
+       const dict = {
+         nomecliente: document.getElementById("nomecliente").value,
+         coperti: document.getElementById("coperti").value,
+         tavolo: document.getElementById("tavolo").value
+       };
+ 
+       document.getElementById("resoconto").innerHTML =
+         graphicManager.generateResoconto(hashmap, dict);
+ 
+       document.getElementById("modifica-btn").onclick = (evt) => {
+         evt.preventDefault();
+         navigateTo("pageprinc");
+       };
+ 
+       document.getElementById("conferma-btn").onclick = (evt) => {
+         evt.preventDefault();
+         navigateTo("pageqrcode");
+       };
+     });
+   }
+ 
+   function initPageQrCode() {
+     const page = document.getElementById("pageqrcode");
+ 
+     page.addEventListener("showpage", () => {
+       const hashmap = dataManager.getInstanceHashmap();
+ 
+       if (hashmap.isEmpty()) {
+         navigateTo("pageprinc");
+         return;
+       }
+ 
+       function generateTextQRCode(hashmap) {
+         const nomecliente = document.getElementById("nomecliente").value;
+         const numerotavolo = document.getElementById("tavolo").value;
+         const numerocoperti = document.getElementById("coperti").value;
+ 
+         const obj = {
+           numeroTavolo: numerotavolo,
+           cliente: nomecliente,
+           coperti: numerocoperti,
+           righe: hashmap.keys().map(id => ({
+             id: parseInt(id),
+             qta: hashmap.get(id)
+           }))
          };
-
-         $("#resoconto").html(
-            graphicManager.generateResoconto(hashmap, dict)
-         );
-
-         $("#modifica-btn").off().click(function (evt) {
-            evt.stopImmediatePropagation();
-            evt.preventDefault();
-            $.mobile.pageContainer.pagecontainer("change", "#pageprinc", {});
-         });
-
-         $("#conferma-btn").off().click(function (evt) {
-            evt.stopImmediatePropagation();
-            evt.preventDefault();
-            $.mobile.pageContainer.pagecontainer("change", "#pageqrcode", {});
-         });
-      });
-
-      $(document).on("pagebeforeshow", "#pageqrcode", function () {
-         function generateTextQRCode(hashmap) {
-            var nomecliente = $('#nomecliente').val();
-            var numerotavolo = $('#tavolo').val();
-            var numerocoperti = $('#coperti').val();
-
-            var obj = {
-               numeroTavolo: numerotavolo,
-               cliente: nomecliente,
-               coperti: numerocoperti,
-               righe: []
-            };
-
-            var keys = hashmap.keys();
-            for (var i = 0; i < keys.length; i++) {
-               obj.righe.push({ id: parseInt(keys[i]), qta: hashmap.get(keys[i]) });
-            }
-
-            return encodeURIComponent(JSON.stringify(obj));
-         }
-
-         var hashmap = dataManager.getInstanceHashmap();
-
-         if (hashmap.isEmpty()) {
-            $.mobile.pageContainer.pagecontainer("change", "#pageprinc", {});
-            return;
-         }
-
-         $("#nuovo-ordine-btn").off().click(function (evt) {
-            evt.stopImmediatePropagation();
-            evt.preventDefault();
-            dataManager.saveInstanceHashmap(new HashMap());
-            $.mobile.pageContainer.pagecontainer("change", "#pageprinc", {});
-         });
-
-         $("#qrcode").html("");
-         var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width: 100,
-            height: 100,
-            useSVG: true
-         });
-
-         var qrCodeManager = new QRCodeManager(qrcode);
-         qrCodeManager.clear();
-         qrCodeManager.makeQRCode(generateTextQRCode(hashmap));
-      });
-
-   }); // <-- fine caricamento JSON
-});
+ 
+         return encodeURIComponent(JSON.stringify(obj));
+       }
+ 
+       document.getElementById("nuovo-ordine-btn").onclick = (evt) => {
+         evt.preventDefault();
+         dataManager.saveInstanceHashmap(new HashMap());
+         navigateTo("pageprinc");
+       };
+ 
+       const qrcodeContainer = document.getElementById("qrcode");
+       qrcodeContainer.innerHTML = "";
+ 
+       const qrcode = new QRCode(qrcodeContainer, {
+         width: 100,
+         height: 100,
+         useSVG: true
+       });
+ 
+       const qrCodeManager = new QRCodeManager(qrcode);
+       qrCodeManager.clear();
+       qrCodeManager.makeQRCode(generateTextQRCode(hashmap));
+     });
+   }
+ 
+   function navigateTo(pageId) {
+     const pages = document.querySelectorAll(".page");
+     pages.forEach(page => page.classList.add("hidden"));
+ 
+     const target = document.getElementById(pageId);
+     if (target) {
+       target.classList.remove("hidden");
+       target.dispatchEvent(new Event("showpage"));
+     }
+   }
+ 
+   function enableCollapse(container) {
+     const collapsibles = container.querySelectorAll("[data-role='collapsible']");
+     collapsibles.forEach(section => {
+       const header = section.querySelector("h4");
+       if (header) {
+         header.style.cursor = "pointer";
+         header.onclick = () => {
+           section.classList.toggle("collapsed");
+         };
+       }
+     });
+   }
+ });
+ 

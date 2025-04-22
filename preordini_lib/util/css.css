@@ -125,3 +125,9 @@
 #content-qrcode{
 	text-align: center;
 }
+
+/* Aggiungi al tuo CSS */
+.hidden {
+    display: none;
+  }
+  
