@@ -1,89 +1,88 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Preordini - Giovani di Dese</title>
-
-  <link rel="stylesheet" href="preordini_lib/util/css.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
-    }
-
-    header, footer {
-      background-color: #222;
-      color: white;
-      text-align: center;
-      padding: 10px;
-    }
-
-    main {
-      padding: 20px;
-    }
-
-    h1, h4 {
-      margin-top: 0;
-    }
-
-    button {
-      margin: 10px 0;
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-  </style>
-
-  <script defer src="preordini_lib/qrcode/qrcode.js"></script>
-  <script defer src="preordini_lib/qrcode/qrcodemanager.js"></script>
-  <script defer src="preordini_lib/util/hashmap.js"></script>
-  <script defer src="preordini_lib/util/data.js"></script>
-  <script defer src="preordini_lib/util/graphicManager.js"></script>
-  <script defer src="preordini_lib/util/main.js"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   
+   <link rel="stylesheet" href="preordini_lib/jquery/jquery.mobile-1.4.5.min.css">
+   <link rel="stylesheet" href="preordini_lib/themes/color-theme.min.css" />
+   <link rel="stylesheet" href="preordini_lib/themes/jquery.mobile.icons.min.css" />
+   <link rel="stylesheet" href="preordini_lib/util/css.css" />
+   
+   <script src="preordini_lib/jquery/jquery-1.11.3.min.js"></script>
+   <script src="preordini_lib/jquery/jquery.mobile-1.4.5.min.js"></script>
+   <script src="preordini_lib/qrcode/qrcode.js"></script>
+   <script src="preordini_lib/qrcode/qrcodemanager.js"></script>
+   
+   <script src="preordini_lib/util/data.js"></script>
+   <script src="preordini_lib/util/hashmap.js"></script>
+   <script src="preordini_lib/util/graphicManager.js"></script>
+   <script src="preordini_lib/util/main.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Men&ugrave;</h1>
-  </header>
 
-  <main>
-    <section id="pageprinc" class="page active">
-      <div id="lista"></div>
-      <button class="green-btn" id="resoconto-btn">Vedi resoconto</button>
-      <button class="red-btn" id="elimina-ordine-btn">Elimina ordine</button>
-    </section>
+<!-- Pagina principale -->
+<div data-role="page" data-theme="b" id="pageprinc">
+   <div data-role="header">
+      <h1>Men&ugrave;</h1>
+   </div>
 
-    <section id="pageres" class="page">
-      <h1>Riepilogo Ordine</h1>
-      <div id="resoconto"></div>
-      <button class="red-btn" id="modifica-btn">Modifica Ordine</button>
-      <button class="green-btn" id="conferma-btn">Conferma Ordine</button>
-    </section>
+   <div data-role="main" class="ui-content">
+      <div id="lista" data-role="collapsible-set"></div>
+      <button class="ui-btn green-btn" id="resoconto-btn">Vedi resoconto</button>
+      <button class="ui-btn red-btn" id="elimina-ordine-btn">Elimina ordine</button>
+   </div>
 
-    <section id="pageqrcode" class="page">
+   <div data-role="footer">
+      <h4>Giovani di Dese</h4>
+   </div>
+
+   <div data-role="popup" id="popup-ordine" data-position-to="window" data-transition="pop">
+      <div data-role="header">
+         <h1 id="title-popup"></h1>
+      </div>
+      <div data-role="main" class="ui-content" id="content-ordine-popup">
+         <div id="info-ordine-popup"></div>
+      </div>
+   </div>
+</div> 
+
+<!-- Pagina QR Code -->
+<div data-role="page" data-theme="b" id="pageqrcode">
+   <div data-role="header">
       <h1>Ordine</h1>
+   </div>
+
+   <div data-role="main" class="ui-content" id="content-qrcode">
       <h4>Presenta questo alla cassa e il tuo ordine sar&agrave; pronto</h4>
       <div id="qrcode"></div>
-      <button class="blue-btn" id="nuovo-ordine-btn">Nuovo Ordine</button>
-    </section>
+      <button class="ui-btn blue-btn" id="nuovo-ordine-btn">Nuovo Ordine</button>
+   </div>
 
-    <div id="popup-ordine" class="hidden">
-      <div id="title-popup"></div>
-      <div id="info-ordine-popup"></div>
-    </div>
-  </main>
+   <div data-role="footer">
+      <h4>Giovani di Dese</h4>
+   </div>
+</div>
 
-  <footer>
-    <h4>Giovani di Dese</h4>
-  </footer>
+<!-- Nuova pagina Riepilogo Ordine -->
+<div data-role="page" data-theme="b" id="pageresoconto">
+   <div data-role="header">
+      <h1>Riepilogo Ordine</h1>
+   </div>
+
+   <div data-role="main" class="ui-content" id="contenuto-resoconto">
+      <!-- Il contenuto del riepilogo verrà inserito via JS -->
+   </div>
+
+   <div class="ui-content">
+      <button class="ui-btn red-btn" id="modifica-btn">Modifica Ordine</button>
+      <button class="ui-btn green-btn" id="conferma-btn">Conferma Ordine</button>
+   </div>
+
+   <div data-role="footer">
+      <h4>Giovani di Dese</h4>
+   </div>
+</div>
+
 </body>
 </html>
