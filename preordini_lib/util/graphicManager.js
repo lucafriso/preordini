@@ -11,7 +11,7 @@ function GraphicManager() {
                const minusBtn = document.getElementById("minus" + pietanza.id);
                const quantitaHtml = document.getElementById("quantita" + pietanza.id);
 
-               if (plusBtn) {
+               if (plusBtn && quantitaHtml) {
                    plusBtn.addEventListener("click", () => {
                        let quantita = parseInt(quantitaHtml.textContent) + 1;
                        quantitaHtml.textContent = quantita;
@@ -20,7 +20,7 @@ function GraphicManager() {
                    });
                }
 
-               if (minusBtn) {
+               if (minusBtn && quantitaHtml) {
                    minusBtn.addEventListener("click", () => {
                        let quantita = Math.max(parseInt(quantitaHtml.textContent) - 1, 0);
                        quantitaHtml.textContent = quantita;
@@ -54,7 +54,7 @@ function GraphicManager() {
                const quantita = hashmap.contains(pietanza.id) ? hashmap.get(pietanza.id) : 0;
                txtLista += `
                    <div class="content-pietanza-ordine">
-                       <div class="left nome-pietanza">${pietanza.nome}</div>
+                       <div class="left nome-pietanza">${pietanza.piatto}</div>
                        <div class="center prezzo-pietanza-ordine">${pietanza.prezzo.toFixed(2)}€</div>
                        <div class="right">
                            <button class="minus-btn" id="minus${pietanza.id}">-</button>
@@ -74,27 +74,39 @@ function GraphicManager() {
        alert(msg);
    };
 
-   
-      this.generateResoconto = function (hashmap, dict) {
-         let txtResoconto = `
+   this.generateResoconto = function (hashmap, dict) {
+       const elencoPietanze = dataManager.getElencoPietanze();
+
+       function getPietanzaById(id) {
+           for (const tipo in elencoPietanze) {
+               const pietanze = elencoPietanze[tipo];
+               const trovata = pietanze.find(p => p.id === id);
+               if (trovata) return trovata;
+           }
+           return null;
+       }
+
+       let txtResoconto = `
          <div>
             <h3>Nome cliente: ${dict.nomecliente}</h3>
             <h3>Tavolo: ${dict.tavolo}</h3>
             <h3>Coperti: ${dict.coperti}</h3>
          </div>`;
-   
-         hashmap.keys().forEach(id => {
-            const pietanza = dataManager.getElencoPietanze()[id];
-            const quantita = hashmap.get(id);
-            txtResoconto += `
+
+       hashmap.keys().forEach(id => {
+           const pietanza = getPietanzaById(id);
+           const quantita = hashmap.get(id);
+           if (pietanza) {
+               txtResoconto += `
                   <div class="content-pietanza-ordine">
-                     <div class="left nome-pietanza">${pietanza.nome}</div>
+                     <div class="left nome-pietanza">${pietanza.piatto}</div>
                      <div class="center prezzo-pietanza-ordine">${(pietanza.prezzo * quantita).toFixed(2)}€</div>
                      <div class="right">${quantita}</div>
                      <div class="endBlock"></div>
                   </div>`;
-         });
-   
-         return txtResoconto;
-      };
-   }
+           }
+       });
+
+       return txtResoconto;
+   };
+}
