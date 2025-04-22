@@ -127,7 +127,7 @@ function Data(){
       );
    }
    
-   var rootURL = "/rest/";
+   var rootURL = "https://raw.githubusercontent.com/lucafriso/preordini/";
    
 
 	
