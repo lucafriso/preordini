@@ -1,0 +1,232 @@
+[
+  {
+    "categoria": "aggiunte",
+    "piatto": "aggiunta pane/polenta",
+    "prezzo": 0.5
+  },
+  {
+    "categoria": "bibite",
+    "piatto": "acqua gas",
+    "prezzo": 1
+  },
+  {
+    "categoria": "bibite",
+    "piatto": "acqua nat",
+    "prezzo": 1
+  },
+  {
+    "categoria": "bibite",
+    "piatto": "birra alla spina",
+    "prezzo": 3
+  },
+  {
+    "categoria": "bibite",
+    "piatto": "coca",
+    "prezzo": 2
+  },
+  {
+    "categoria": "bibite",
+    "piatto": "fanta",
+    "prezzo": 2
+  },
+  {
+    "categoria": "bibite",
+    "piatto": "the",
+    "prezzo": 2
+  },
+  {
+    "categoria": "bigoli",
+    "piatto": "bigoli al pomodoro",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "bigoli",
+    "piatto": "bigoli al ragù",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "bigoli",
+    "piatto": "bigoli al ragù d'anatra",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "bigoli",
+    "piatto": "bigoli al ragù di cinghiale",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "bigoli",
+    "piatto": "bigoli porcini e salsiccia",
+    "prezzo": 7
+  },
+  {
+    "categoria": "contorni",
+    "piatto": "patatine fritte",
+    "prezzo": 2.5
+  },
+  {
+    "categoria": "contorni",
+    "piatto": "fagioli con cipolla",
+    "prezzo": 2.5
+  },
+  {
+    "categoria": "contorni",
+    "piatto": "fagioli",
+    "prezzo": 2.5
+  },
+  {
+    "categoria": "contorni",
+    "piatto": "insalata mista",
+    "prezzo": 2.5
+  },
+  {
+    "categoria": "contorni",
+    "piatto": "Pomodori",
+    "prezzo": 2.5
+  },
+  {
+    "categoria": "coperto",
+    "piatto": "coperto",
+    "prezzo": 1
+  },
+  {
+    "categoria": "dolce",
+    "piatto": "dolci",
+    "prezzo": 2.5
+  },
+  {
+    "categoria": "gnocchi",
+    "piatto": "gnocchi al pomodoro",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "gnocchi",
+    "piatto": "gnocchi al ragù",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "gnocchi",
+    "piatto": "gnocchi al ragù d'anatra",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "gnocchi",
+    "piatto": "gnocchi al ragù di cinghiale",
+    "prezzo": 6.5
+  },
+  {
+    "categoria": "penne",
+    "piatto": "penne al pomodoro",
+    "prezzo": 6
+  },
+  {
+    "categoria": "penne",
+    "piatto": "penne al ragù",
+    "prezzo": 6
+  },
+  {
+    "categoria": "penne",
+    "piatto": "penne al ragù d'anatra",
+    "prezzo": 6
+  },
+  {
+    "categoria": "penne",
+    "piatto": "penne al ragù di cinghiale",
+    "prezzo": 6
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "Tris di baccalà",
+    "prezzo": 10
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "bistecca di cavallo",
+    "prezzo": 10
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "carne salada",
+    "prezzo": 9.5
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "formaggi misti",
+    "prezzo": 6
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "1/2 galletto",
+    "prezzo": 7
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "grigliata mista",
+    "prezzo": 9
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "ossetti",
+    "prezzo": 9
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "piatto freddo",
+    "prezzo": 9.5
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "salsicce ai ferri",
+    "prezzo": 8
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "spezzatino di cinghiale",
+    "prezzo": 10
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "tagliata di cavallo",
+    "prezzo": 10
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "Tagliata di bufala",
+    "prezzo": 10
+  },
+  {
+    "categoria": "secondi",
+    "piatto": "menù bambino",
+    "prezzo": 6
+  },
+  {
+    "categoria": "vino",
+    "piatto": "rabosello 1L",
+    "prezzo": 6
+  },
+  {
+    "categoria": "vino",
+    "piatto": "rabosello 1/2 litro",
+    "prezzo": 3
+  },
+  {
+    "categoria": "vino",
+    "piatto": "prosecco 1L",
+    "prezzo": 6
+  },
+  {
+    "categoria": "vino",
+    "piatto": "prosecco 1/2",
+    "prezzo": 3
+  },
+  {
+    "categoria": "vino",
+    "piatto": "rosso da pasto 1L",
+    "prezzo": 5
+  },
+  {
+    "categoria": "vino",
+    "piatto": "rosso da pasto 1/2",
+    "prezzo": 2.5
+  }
+]
