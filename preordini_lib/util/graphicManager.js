@@ -51,7 +51,7 @@ function GraphicManager() {
  
      elencoPrincipale.forEach(tipo => {
        html += `<h3>${tipo}</h3>`;
-       const pietanze = elencoPietanze[tipo] || [];
+       const pietanze = Array.isArray(elencoPietanze[tipo]) ? elencoPietanze[tipo] : [];
        pietanze.forEach(p => {
          const quantita = hashmap.contains(p.id) ? hashmap.get(p.id) : 0;
          html += `
