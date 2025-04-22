@@ -6,7 +6,7 @@ var categorie = []
 var elencoPietanze = [];
 
 
-/* function popolaTipologie() {
+function popolaTipologie() {
     $.ajax({
       url: "https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json",  	  
       async: false,
@@ -18,9 +18,9 @@ var elencoPietanze = [];
 		 
       }
    });
-} */
+} 
 
-
+/*
    function popolaTipologie() {
       $.ajax({
           url: "https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json",
@@ -50,7 +50,7 @@ var elencoPietanze = [];
           }
       });
   } 
-  
+  */
 
 
 
