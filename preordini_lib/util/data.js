@@ -1,65 +1,75 @@
-// data.js
-
-let elencoPrincipale = [];
-let elencoPietanze = [];
-let categorie = [];
+var elencoPrincipale = [];
+var categorie = [];
+var elencoPietanze = {};
 
 function caricaMenuDaFile() {
-  return fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
-    .then(response => response.json())
-    .then(menu => {
-      for (const categoria in menu) {
-        if (menu.hasOwnProperty(categoria)) {
-          elencoPrincipale.push(categoria);
-          elencoPietanze[categoria] = menu[categoria];
-          categorie.push({
-            id: categoria.toLowerCase().replace(/\s+/g, "_"),
-            descrizione: categoria
-          });
-        }
-      }
-    })
-    .catch(error => {
-      console.error("Errore nel caricamento del menu:", error);
-    });
+    return fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
+        .then(response => response.json())
+        .then(menu => {
+            elencoPrincipale = [];
+            categorie = [];
+            elencoPietanze = {};
+
+            menu.forEach(item => {
+                if (!elencoPietanze[item.categoria]) {
+                    elencoPietanze[item.categoria] = [];
+                    elencoPrincipale.push(item.categoria);
+                    categorie.push({
+                        id: item.categoria.toLowerCase().replace(/\s+/g, "_"),
+                        descrizione: item.categoria
+                    });
+                }
+
+                const id = `${item.categoria}_${item.piatto}`.replace(/\s+/g, "_");
+                elencoPietanze[item.categoria].push({
+                    id: id,
+                    nome: item.piatto,
+                    prezzo: item.prezzo
+                });
+            });
+        })
+        .catch(error => console.error("Errore nel caricamento del menu:", error));
 }
 
 function Data() {
-  const riferimentoHashMap = "preordini_hashmap";
-  const riferimentoCoperti = "preordini_coperti";
+    var riferimentoHashMap = "_hashmap";
+    var riferimentoCoperti = "_coperti";
 
-  this.getElencoPrincipale = function () {
-    return elencoPrincipale;
-  };
+    this.getElencoPrincipale = () => elencoPrincipale;
+    this.getElencoPietanze = () => elencoPietanze;
 
-  this.getElencoPietanze = function () {
-    return elencoPietanze;
-  };
+    this.getInstanceHashmap = function () {
+        function recreateHashmap(value) {
+            var hashmap = new HashMap();
+            for (var i = 0; i < value.length; i++) {
+                hashmap.put(value[i].key, value[i].val);
+            }
+            return hashmap;
+        }
 
-  this.getInstanceHashmap = function () {
-    const raw = localStorage.getItem(riferimentoHashMap);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      const hashmap = new HashMap();
-      parsed.value.forEach(e => hashmap.put(e.key, e.val));
-      return hashmap;
-    } else {
-      const newMap = new HashMap();
-      this.saveInstanceHashmap(newMap);
-      return newMap;
-    }
-  };
+        var hashmap = localStorage.getItem(riferimentoHashMap);
+        if (hashmap) {
+            return recreateHashmap(JSON.parse(hashmap).value);
+        } else {
+            hashmap = new HashMap();
+            this.saveInstanceHashmap(hashmap);
+            return hashmap;
+        }
+    };
 
-  this.saveInstanceHashmap = function (hashmap) {
-    localStorage.setItem(riferimentoHashMap, JSON.stringify(hashmap));
-  };
+    this.saveInstanceHashmap = function (hashmap) {
+        localStorage.setItem(
+            riferimentoHashMap,
+            JSON.stringify(hashmap)
+        );
+    };
 
-  this.getInstanceCoperti = function () {
-    const coperti = localStorage.getItem(riferimentoCoperti);
-    return coperti ? parseInt(coperti) : 1;
-  };
+    this.getInstanceCoperti = function () {
+        var coperti = localStorage.getItem(riferimentoCoperti);
+        return coperti ? parseInt(coperti) : 1;
+    };
 
-  this.saveInstanceCoperti = function (coperti) {
-    localStorage.setItem(riferimentoCoperti, coperti);
-  };
+    this.saveInstanceCoperti = function (coperti) {
+        localStorage.setItem(riferimentoCoperti, coperti);
+    };
 }
