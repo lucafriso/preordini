@@ -57,7 +57,7 @@ function popolaTipologie() {
 popolaTipologie();
 
 
-
+/*
 function popolaArticoli() {
 	for (var i=0; i<categorie.length; i++){
 	$.ajax({
@@ -77,7 +77,7 @@ function popolaArticoli() {
 }
 
 popolaArticoli();
-	
+*/
 
 
 function Data(){
