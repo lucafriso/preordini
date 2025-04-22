@@ -1,103 +1,65 @@
-//1234
-var elencoPrincipale = [];
-var categorie = [];
-var elencoPietanze = [];
+// data.js
 
-// Nuova funzione che carica i dati direttamente da menu.json
-function caricaMenuDaFile(callback) {
-    fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
-        .then(response => response.json())
-        .then(menu => {
-            for (let categoria in menu) {
-                if (menu.hasOwnProperty(categoria)) {
-                    const pietanze = Array.isArray(menu[categoria]) ? menu[categoria] : [];
+let elencoPrincipale = [];
+let elencoPietanze = [];
+let categorie = [];
 
-                    elencoPrincipale.push(categoria);
-                    elencoPietanze[categoria] = pietanze;
-                    categorie.push({ id: categoria.toLowerCase().replace(/\s+/g, "_"), descrizione: categoria });
-                }
-            }
-            if (typeof callback === "function") callback();
-        })
-        .catch(err => console.error("Errore nel caricamento del menu:", err));
+function caricaMenuDaFile() {
+  return fetch("https://raw.githubusercontent.com/lucafriso/preordini/main/dati/menu.json")
+    .then(response => response.json())
+    .then(menu => {
+      for (const categoria in menu) {
+        if (menu.hasOwnProperty(categoria)) {
+          elencoPrincipale.push(categoria);
+          elencoPietanze[categoria] = menu[categoria];
+          categorie.push({
+            id: categoria.toLowerCase().replace(/\s+/g, "_"),
+            descrizione: categoria
+          });
+        }
+      }
+    })
+    .catch(error => {
+      console.error("Errore nel caricamento del menu:", error);
+    });
 }
 
+function Data() {
+  const riferimentoHashMap = "preordini_hashmap";
+  const riferimentoCoperti = "preordini_coperti";
 
+  this.getElencoPrincipale = function () {
+    return elencoPrincipale;
+  };
 
+  this.getElencoPietanze = function () {
+    return elencoPietanze;
+  };
 
-
-
-// Carica il menu locale al posto delle chiamate REST
-caricaMenuDaFile();
-
-// Gestione cookie con Vanilla JS
-function getCookie(name) {
-    const cookies = document.cookie.split("; ");
-    for (let i = 0; i < cookies.length; i++) {
-        const [cookieName, cookieVal] = cookies[i].split("=");
-        if (cookieName === name) {
-            return decodeURIComponent(cookieVal);
-        }
+  this.getInstanceHashmap = function () {
+    const raw = localStorage.getItem(riferimentoHashMap);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      const hashmap = new HashMap();
+      parsed.value.forEach(e => hashmap.put(e.key, e.val));
+      return hashmap;
+    } else {
+      const newMap = new HashMap();
+      this.saveInstanceHashmap(newMap);
+      return newMap;
     }
-    return null;
-}
+  };
 
-function setCookie(name, value, days = 365) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + expires + "; path=/";
-}
+  this.saveInstanceHashmap = function (hashmap) {
+    localStorage.setItem(riferimentoHashMap, JSON.stringify(hashmap));
+  };
 
-function Data(){
-    var riferimentoHashMap = "_hashmap"; 
-    var riferimentoCoperti = "_coperti";
+  this.getInstanceCoperti = function () {
+    const coperti = localStorage.getItem(riferimentoCoperti);
+    return coperti ? parseInt(coperti) : 1;
+  };
 
-    this.getInstanceHashmap = function(){
-        function recreateHashmap(value){
-            var hashmap = new HashMap();
-            for(var i = 0; i < value.length; i++){
-                hashmap.put(value[i].key, value[i].val);
-            }
-            return hashmap;
-        }
-
-        var hashmap = getCookie(riferimentoHashMap);
-        if(typeof hashmap !== 'undefined' && hashmap !== null){  //esiste
-            return recreateHashmap(JSON.parse(hashmap).value);
-        } else {
-            hashmap = new HashMap();
-            this.saveInstanceHashmap(hashmap);
-            return hashmap;
-        }
-    }
-
-    this.saveInstanceHashmap = function(hashmap){
-        setCookie(
-            riferimentoHashMap,
-            JSON.stringify(hashmap)
-        );
-    }
-
-    this.getInstanceCoperti = function(){
-        var coperti = getCookie(riferimentoCoperti);
-        if(typeof coperti !== 'undefined' && coperti !== null){
-            return parseInt(coperti);
-        } else {
-            return 1;
-        }
-    }
-
-    this.saveInstanceCoperti = function(coperti){
-        setCookie(
-            riferimentoCoperti,
-            coperti
-        );
-    }
-
-    this.getElencoPrincipale = function() {
-        return elencoPrincipale;
-    }
-
-    this.getElencoPietanze = function() {
-        return elencoPietanze;
-    }
+  this.saveInstanceCoperti = function (coperti) {
+    localStorage.setItem(riferimentoCoperti, coperti);
+  };
 }
