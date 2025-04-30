@@ -1,22 +1,10 @@
-
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f4f6f8;
-    margin: 0;
-    padding: 0;
+.right, .left, .center{
+	float: left;
+	width: 33%;
 }
 
-h1, h3, .nome-pietanza {
-    color: #2c3e50;
-}
-
-.right, .left, .center {
-    float: left;
-    width: 33%;
-}
-
-.minus-btn, .plus-btn {
-    width: 32px;
+.minus-btn, .plus-btn{
+	width: 32px;
     height: 32px;
     font-size: 18px;
     border-radius: 50%;
@@ -26,16 +14,20 @@ h1, h3, .nome-pietanza {
     margin: 0 5px;
 }
 
-.minus-btn {
-    background-color: #e74c3c;
+.minus-btn{
+	background-color: #e74c3c;
 }
 
-.endBlock {
-    clear: both;
+.plus-btn{
+	background-color: #e74c3c;
 }
 
-.content-pietanza-ordine {
-    background-color: white;
+.endBlock{
+   clear: left;
+}
+
+.content-pietanza-ordine{
+   background-color: white;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 15px;
@@ -45,71 +37,92 @@ h1, h3, .nome-pietanza {
     justify-content: space-between;
 }
 
-.content-pietanza-riepilogo {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
+.content-pietanza-riepilogo{
+    border-bottom: 1px solid #8c6239;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
-.nome-pietanza {
-    width: 40%;
+.nome-pietanza{
+	width: 41%;
+}
+
+.prezzo-pietanza-ordine{
+	text-align: center;
+	width: 25%;
+}
+
+.prezzo-pietanza-riepilogo{
+	width: 33%;
+}
+
+.quantita-pietanza-ordine{
+	text-align: center;
+}
+
+.quantita-pietanza-riepilogo{
+	width: 24%;
+	text-align: center;
+}
+
+.content-totale-ordine-riepilogo{
+    border-top: 3px solid #8c6239;
+	padding-top: 7px;
+}
+
+.title-pietanze-riepilogo{
+    border-bottom: 5px solid #8c6239;
+	padding-bottom: 7px;
     font-weight: bold;
 }
 
-.prezzo-pietanza-ordine, .quantita-pietanza-ordine {
-    text-align: center;
-    width: 30%;
-}
-
-.quantita-pietanza-ordine span {
-    display: inline-block;
-    min-width: 30px;
-    text-align: center;
-}
-
-.prezzo-pietanza-riepilogo,
-.quantita-pietanza-riepilogo {
-    width: 24%;
-    text-align: center;
-}
-
-.title-pietanze-riepilogo,
-.tipo-pietanza-riepilogo {
+.tipo-pietanza-riepilogo{
+    border-bottom: 2px solid #8c6239;
+    font-style: italic;
     font-weight: bold;
-    padding: 10px 0;
-    color: #34495e;
+	padding-top: 11px;
+	padding-bottom: 7px;
 }
 
-.content-totale-ordine-riepilogo {
-    border-top: 2px solid #2c3e50;
-    padding-top: 10px;
-}
-
-.red-btn, .green-btn, .blue-btn {
-    color: white !important;
-    border-radius: 8px;
+.red-btn{
+	border-radius: 5px;
     border: none;
-    padding: 10px;
-    font-size: 16px;
+    background: linear-gradient(#3498db, #2980b9); /* Blu moderno */
+    color: white;
 }
 
-.red-btn {
-    background: linear-gradient(#e74c3c, #c0392b);
+.green-btn{
+	border-radius: 5px;
+    border: none;
+    background: linear-gradient(#3498db, #2980b9); /* Blu moderno */
+    color: white;
 }
 
-.green-btn {
-    background: linear-gradient(#27ae60, #1e8449);
+.blue-btn{
+	border-radius: 5px;
+    border: none;
+    background: linear-gradient(#3498db, #2980b9); /* Blu moderno */
+    color: white;
 }
 
-.blue-btn {
-    background: linear-gradient(#3498db, #2980b9);
+.brown-btn{
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(#3498db, #2980b9); /* Blu moderno */
+    color: white;
 }
 
-#content-ordine-popup,
-#content-qrcode {
-    text-align: center;
-    padding: 15px;
+#content-ordine-popup{
+	padding: 7px 13px 7px 13px;
+	text-align: center;
 }
 
+#content-qrcode{
+	text-align: center;
+}
+
+/* Aggiungi al tuo CSS */
 .hidden {
     display: none;
-}
+  }
+  
