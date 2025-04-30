@@ -94,21 +94,21 @@
 .green-btn{
 	border-radius: 5px;
     border: none;
-    background: linear-gradient(#ba1a2a, #ba1a2a); /* Blu moderno */
+    background: linear-gradient(#5dc24e, #5dc24e); /* Blu moderno */
     color: white;
 }
 
 .blue-btn{
 	border-radius: 5px;
     border: none;
-    background: linear-gradient(#ba1a2a, #ba1a2a); /* Blu moderno */
+    background: linear-gradient(#478aed, #478aed); /* Blu moderno */
     color: white;
 }
 
 .brown-btn{
     border-radius: 5px;
     border: none;
-    background: linear-gradient(#ba1a2a, #ba1a2a); /* Blu moderno */
+    background: linear-gradient(#478aed, #478aed); /* Blu moderno */
     color: white;
 }
 
