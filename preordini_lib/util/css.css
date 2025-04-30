@@ -1,133 +1,115 @@
-.right, .left, .center{
-	float: left;
-	width: 33%;
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 0;
 }
 
-.minus-btn, .plus-btn{
-	height: 30px !important;
-	width: 23px !important;
-	text-align: center;
-	margin: 0;
-	padding: 0;
+h1, h3, .nome-pietanza {
+    color: #2c3e50;
 }
 
-.minus-btn{
-	float: right;
+.right, .left, .center {
+    float: left;
+    width: 33%;
 }
 
-.plus-btn{
-	float: left;
+.minus-btn, .plus-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    border-radius: 50%;
+    border: none;
+    background-color: #27ae60;
+    color: white;
+    margin: 0 5px;
 }
 
-.endBlock{
-   clear: left;
+.minus-btn {
+    background-color: #e74c3c;
 }
 
-.content-pietanza-ordine{
-   width: 100%;
-   padding-bottom: 10px;
-   padding-top: 10px;
-   border-bottom: solid #8c6239;
+.endBlock {
+    clear: both;
 }
 
-.content-pietanza-riepilogo{
-    border-bottom: 1px solid #8c6239;
-	padding-top: 5px;
-	padding-bottom: 5px;
+.content-pietanza-ordine {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.nome-pietanza{
-	width: 41%;
+.content-pietanza-riepilogo {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
 }
 
-.prezzo-pietanza-ordine{
-	text-align: center;
-	width: 25%;
-}
-
-.prezzo-pietanza-riepilogo{
-	width: 33%;
-}
-
-.quantita-pietanza-ordine{
-	text-align: center;
-}
-
-.quantita-pietanza-riepilogo{
-	width: 24%;
-	text-align: center;
-}
-
-.content-totale-ordine-riepilogo{
-    border-top: 3px solid #8c6239;
-	padding-top: 7px;
-}
-
-.title-pietanze-riepilogo{
-    border-bottom: 5px solid #8c6239;
-	padding-bottom: 7px;
+.nome-pietanza {
+    width: 40%;
     font-weight: bold;
 }
 
-.tipo-pietanza-riepilogo{
-    border-bottom: 2px solid #8c6239;
-    font-style: italic;
+.prezzo-pietanza-ordine, .quantita-pietanza-ordine {
+    text-align: center;
+    width: 30%;
+}
+
+.quantita-pietanza-ordine span {
+    display: inline-block;
+    min-width: 30px;
+    text-align: center;
+}
+
+.prezzo-pietanza-riepilogo,
+.quantita-pietanza-riepilogo {
+    width: 24%;
+    text-align: center;
+}
+
+.title-pietanze-riepilogo,
+.tipo-pietanza-riepilogo {
     font-weight: bold;
-	padding-top: 11px;
-	padding-bottom: 7px;
+    padding: 10px 0;
+    color: #34495e;
 }
 
-.red-btn{
-	color: white !important;
-    border-radius: 10px;
-	background: #f20000; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#f20000, #ff6868); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#f20000, #ff6868); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#f20000, #ff6868); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#f20000, #ff6868); /* Standard syntax (must be last) */
+.content-totale-ordine-riepilogo {
+    border-top: 2px solid #2c3e50;
+    padding-top: 10px;
 }
 
-.green-btn{
-	color: white !important;
-    border-radius: 10px;
-	background: #178435; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#178435, #43b261); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#178435, #43b261); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#178435, #43b261); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#178435, #43b261); /* Standard syntax (must be last) */
+.red-btn, .green-btn, .blue-btn {
+    color: white !important;
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
 }
 
-.blue-btn{
-	color: white !important;
-    border-radius: 10px;
-    background: #00178e; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#0a2cd6, #00178e); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#0a2cd6, #00178e); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#0a2cd6, #00178e); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#0a2cd6, #00178e); /* Standard syntax (must be last) */
+.red-btn {
+    background: linear-gradient(#e74c3c, #c0392b);
 }
 
-.brown-btn{
-    border-radius: 3px;
-    border: 1px solid #a17041;
-    background: #e2b488; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#fcd8b5, #e2b488); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#fcd8b5, #e2b488); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#fcd8b5, #e2b488); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#fcd8b5, #e2b488); /* Standard syntax (must be last) */
+.green-btn {
+    background: linear-gradient(#27ae60, #1e8449);
 }
 
-#content-ordine-popup{
-	padding: 7px 13px 7px 13px;
-	text-align: center;
+.blue-btn {
+    background: linear-gradient(#3498db, #2980b9);
 }
 
-#content-qrcode{
-	text-align: center;
+#content-ordine-popup,
+#content-qrcode {
+    text-align: center;
+    padding: 15px;
 }
 
-/* Aggiungi al tuo CSS */
 .hidden {
     display: none;
-  }
-  
+}
