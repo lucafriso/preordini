@@ -87,7 +87,7 @@
 .red-btn{
 	border-radius: 5px;
     	border: none;
-    	background: linear-gradient(#ba1a2a, #e31e31); /* Rosso moderno */
+    	background: #ba1a2a; /* Rosso moderno */
     	color: white;
 }
 
