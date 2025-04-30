@@ -19,7 +19,7 @@
 }
 
 .plus-btn{
-	background-color: #e74c3c;
+	background-color: #47ba1a;
 }
 
 .endBlock{
@@ -86,9 +86,9 @@
 
 .red-btn{
 	border-radius: 5px;
-    border: none;
-    background: linear-gradient(#3498db, #2980b9); /* Blu moderno */
-    color: white;
+    	border: none;
+    	background: linear-gradient(#ba1a2a, #e31e31); /* Rosso moderno */
+    	color: white;
 }
 
 .green-btn{
