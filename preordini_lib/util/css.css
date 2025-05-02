@@ -1,128 +1,158 @@
-.right, .left, .center{
-	float: left;
-	width: 33%;
+/* Layout base */
+.right, .left, .center {
+    float: left;
+    width: 33%;
 }
 
-.minus-btn, .plus-btn{
-	width: 32px;
+.endBlock {
+    clear: left;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Bottoni + e - */
+.minus-btn, .plus-btn {
+    width: 32px;
     height: 32px;
     font-size: 18px;
     border-radius: 50%;
     border: none;
-    background-color: #27ae60;
     color: white;
     margin: 0 5px;
+    cursor: pointer;
 }
 
-.minus-btn{
-	background-color: #e74c3c;
+.minus-btn {
+    background-color: #e74c3c;
 }
 
-.plus-btn{
-	background-color: #47ba1a;
+.plus-btn {
+    background-color: #47ba1a;
 }
 
-.endBlock{
-   clear: left;
-}
-
-.content-pietanza-ordine{
-   background-color: white;
+/* Sezioni dei piatti */
+.content-pietanza-ordine {
+    background-color: #fff;
     border-radius: 10px;
     padding: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 }
 
-.content-pietanza-riepilogo{
-    border-bottom: 1px solid #8c6239;
-	padding-top: 5px;
-	padding-bottom: 5px;
+.nome-pietanza {
+    width: 41%;
+    font-weight: 500;
+    font-size: 16px;
 }
 
-.nome-pietanza{
-	width: 41%;
+.prezzo-pietanza-ordine {
+    text-align: center;
+    width: 25%;
+    font-size: 15px;
 }
 
-.prezzo-pietanza-ordine{
-	text-align: center;
-	width: 25%;
+.quantita-pietanza-ordine {
+    text-align: center;
 }
 
-.prezzo-pietanza-riepilogo{
-	width: 33%;
+.content-pietanza-riepilogo {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
 }
 
-.quantita-pietanza-ordine{
-	text-align: center;
-}
-
-.quantita-pietanza-riepilogo{
-	width: 24%;
-	text-align: center;
-}
-
-.content-totale-ordine-riepilogo{
-    border-top: 3px solid #8c6239;
-	padding-top: 7px;
-}
-
-.title-pietanze-riepilogo{
-    border-bottom: 5px solid #8c6239;
-	padding-bottom: 7px;
+/* Resoconto */
+.title-pietanze-riepilogo {
+    border-bottom: 3px solid #478aed;
+    padding-bottom: 7px;
     font-weight: bold;
 }
 
-.tipo-pietanza-riepilogo{
-    border-bottom: 2px solid #8c6239;
+.tipo-pietanza-riepilogo {
+    font-weight: bold;
     font-style: italic;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 0 6px 0;
+    font-size: 17px;
+}
+
+.content-totale-ordine-riepilogo {
+    border-top: 2px solid #478aed;
     font-weight: bold;
-	padding-top: 11px;
-	padding-bottom: 7px;
+    padding: 15px 0;
 }
 
-.red-btn{
-	border-radius: 5px;
-    	border: none;
-    	background: linear-gradient(#ba1a2a, #ba1a2a); /* Rosso moderno */
-    	color: white;
-}
-
-.green-btn{
-	border-radius: 5px;
-    border: none;
-    background: linear-gradient(#5dc24e, #5dc24e); /* Blu moderno */
-    color: white;
-}
-
-.blue-btn{
-	border-radius: 5px;
-    border: none;
-    background: linear-gradient(#478aed, #478aed); /* Blu moderno */
-    color: white;
-}
-
-.brown-btn{
+/* Bottoni azione */
+.red-btn {
     border-radius: 5px;
     border: none;
-    background: linear-gradient(#478aed, #478aed); /* Blu moderno */
+    background: linear-gradient(#ba1a2a, #a10e20);
     color: white;
+    padding: 10px 20px;
+    font-size: 15px;
 }
 
-#content-ordine-popup{
-	padding: 7px 13px 7px 13px;
-	text-align: center;
+.green-btn {
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(#5dc24e, #43a62b);
+    color: white;
+    padding: 10px 20px;
+    font-size: 15px;
 }
 
-#content-qrcode{
-	text-align: center;
+.blue-btn {
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(#478aed, #2962c2);
+    color: white;
+    padding: 10px 20px;
+    font-size: 15px;
 }
 
-/* Aggiungi al tuo CSS */
-.hidden {
+.brown-btn {
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(#795548, #5d4037);
+    color: white;
+    padding: 4px 10px;
+    font-size: 13px;
+}
+
+/* Accordion categoria */
+.accordion-toggle {
+    cursor: pointer;
+    background-color: #f0f0f0;
+    padding: 12px 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    transition: background-color 0.2s ease;
+    border: 1px solid #ccc;
+}
+
+.accordion-toggle:hover {
+    background-color: #e0e0e0;
+}
+
+.accordion-content {
+    padding: 10px 10px 0 10px;
     display: none;
-  }
-  
+}
+
+/* Popup */
+#content-ordine-popup {
+    padding: 12px;
+    text-align: center;
+}
+
+#content-qrcode {
+    text-align: center;
+}
