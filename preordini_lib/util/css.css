@@ -14,9 +14,9 @@
 
 /* Bottoni + e - */
 .minus-btn, .plus-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
     border-radius: 50%;
     border: none;
     color: white;
@@ -29,8 +29,9 @@
 }
 
 .plus-btn {
-    background-color: #47ba1a;
+    background-color: #27ae60;
 }
+
 
 /* Sezioni dei piatti */
 .content-pietanza-ordine {
@@ -40,26 +41,30 @@
     margin-bottom: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .nome-pietanza {
-    width: 41%;
-    font-weight: 500;
+    width: 40%;
     font-size: 16px;
+    font-weight: 500;
 }
 
 .prezzo-pietanza-ordine {
-    text-align: center;
     width: 25%;
+    text-align: center;
     font-size: 15px;
 }
 
 .quantita-pietanza-ordine {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
 }
+
 
 .content-pietanza-riepilogo {
     border-bottom: 1px solid #ccc;
@@ -126,20 +131,22 @@
 
 /* Accordion categoria */
 .accordion-toggle {
-    cursor: pointer;
-    background-color: #f0f0f0;
-    padding: 12px 15px;
-    margin-top: 10px;
-    border-radius: 8px;
-    font-weight: bold;
+    width: 100%;
+    text-align: left;
+    margin-top: 12px;
+    padding: 14px 16px;
     font-size: 18px;
-    color: #333;
-    transition: background-color 0.2s ease;
-    border: 1px solid #ccc;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    background: linear-gradient(#5dc24e, #43a62b);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: block;
 }
-
 .accordion-toggle:hover {
-    background-color: #e0e0e0;
+    background: linear-gradient(#4caf50, #3b8e2e);
 }
 
 .accordion-content {

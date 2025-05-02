@@ -38,40 +38,45 @@ function GraphicManager() {
  
     this.generateMenu = function (hashmap) {
         const elencoPrincipale = dataManager.getElencoPrincipale();
-    const elencoPietanze = dataManager.getElencoPietanze();
+        const elencoPietanze = dataManager.getElencoPietanze();
 
-    let html = `
-        <div class="form-clienti">
-            <input type="text" id="nomecliente" placeholder="Nome cliente"/>
-            <input type="text" id="tavolo" placeholder="Numero tavolo"/>
-            <input type="number" id="coperti" placeholder="Coperti" value="1"/>
-        </div>`;
+        let txtLista = `
+            <div>
+                <input type='text' id='nomecliente' placeholder='Inserisci il tuo nome' class="ui-input-text"/>
+                <input type='text' id='tavolo' placeholder='Inserisci il numero del tavolo' class="ui-input-text"/>
+                <input type='number' id='coperti' placeholder='Quanti siete?' class="ui-input-text"/>
+            </div>`;
 
-    elencoPrincipale.forEach(categoria => {
-        html += `
-            <div class="accordion-section">
-                <button class="accordion-toggle">${categoria}</button>
-                <div class="accordion-content">
-        `;
+        elencoPrincipale.forEach(categoria => {
+            const pietanze = elencoPietanze[categoria];
+            const categoriaId = `cat_${categoria.replace(/\s+/g, '_').toLowerCase()}`;
 
-        elencoPietanze[categoria].forEach(pietanza => {
-            const quantita = hashmap.contains(pietanza.id) ? hashmap.get(pietanza.id) : 0;
-            html += `
-                <div class="pietanza-item">
-                    <div class="pietanza-nome">${pietanza.nome}</div>
-                    <div class="pietanza-prezzo">${pietanza.prezzo.toFixed(2)} €</div>
-                    <div class="pietanza-quantita">
-                        <button id="minus${pietanza.id}" class="btn btn-minus">-</button>
+            txtLista += `
+                <button class="accordion-toggle" onclick="toggleCategoria('${categoriaId}')">${categoria}</button>
+                <div class="categoria-content hidden" id="${categoriaId}">
+            `;
+
+            pietanze.forEach(pietanza => {
+                const quantita = hashmap.contains(pietanza.id) ? hashmap.get(pietanza.id) : 0;
+
+                txtLista += `
+                    <div class="content-pietanza-ordine">
+                    <div class="left nome-pietanza">${pietanza.nome}</div>
+                    <div class="center prezzo-pietanza-ordine">${pietanza.prezzo.toFixed(2)}€</div>
+                    <div class="quantita-pietanza-ordine">
+                        <button class="minus-btn" id="minus${pietanza.id}">−</button>
                         <span id="quantita${pietanza.id}">${quantita}</span>
-                        <button id="plus${pietanza.id}" class="btn btn-plus">+</button>
+                        <button class="plus-btn" id="plus${pietanza.id}">+</button>
                     </div>
-                </div>`;
+                    <div class="endBlock"></div>
+                    </div>
+                `;
+            });
+
+            txtLista += `</div>`;
         });
 
-        html += `</div></div>`;
-    });
-
-    return html;
+        return txtLista;
     };
  
     this.generatePopup = function (msg) {
