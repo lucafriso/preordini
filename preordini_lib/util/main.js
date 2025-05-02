@@ -1,94 +1,89 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const graphicManager = new GraphicManager();
-  const dataManager = new Data();
+   const graphicManager = new GraphicManager();
+   const dataManager = new Data();
 
-  try {
-     await dataManager.loadJsonMenu();
-     navigateTo("pageprinc");
-  } catch (error) {
-     console.error("Errore nel caricamento del menu:", error);
-  }
+   try {
+       await dataManager.loadJsonMenu();
+       navigateTo("pageprinc");
+   } catch (error) {
+       console.error("Errore nel caricamento del menu:", error);
+   }
 
-  function navigateTo(pageId) {
-     if (pageId === "pageprinc") {
-        const lista = document.getElementById("lista");
-        lista.innerHTML = graphicManager.generateMenu(dataManager.getInstanceHashmap());
-        graphicManager.setButtonPlusMinus(dataManager.getInstanceHashmap());
-     }
+   function navigateTo(pageId) {
+       document.querySelectorAll(".ui-page").forEach(p => p.classList.remove("ui-page-active"));
+       document.getElementById(pageId).classList.add("ui-page-active");
 
-     if (pageId === "pageresoconto") {
-        const hashmap = dataManager.getInstanceHashmap();
+       if (pageId === "pageprinc") {
+           const lista = document.getElementById("lista");
+           lista.innerHTML = graphicManager.generateMenu(dataManager.getInstanceHashmap());
+           graphicManager.setButtonPlusMinus(dataManager.getInstanceHashmap());
+       }
 
-        if (hashmap.isEmpty()) {
-           graphicManager.generatePopup("popup-ordine", { value: false });
-           return;
-        }
+       if (pageId === "pageresoconto") {
+           const hashmap = dataManager.getInstanceHashmap();
+           if (hashmap.isEmpty()) {
+               graphicManager.generatePopup("Nessuna pietanza selezionata");
+               return;
+           }
 
-        const dict = {
-           nomecliente: document.getElementById("nomecliente").value,
-           coperti: document.getElementById("coperti").value,
-           tavolo: document.getElementById("tavolo").value
-        };
+           const dict = {
+               nomecliente: document.getElementById("nomecliente").value,
+               coperti: document.getElementById("coperti").value,
+               tavolo: document.getElementById("tavolo").value
+           };
 
-        const resocontoHtml = graphicManager.generateResoconto(hashmap, dict);
-        document.getElementById("contenuto-resoconto").innerHTML = resocontoHtml;
+           const resocontoHtml = graphicManager.generateResoconto(hashmap, dict);
+           document.getElementById("contenuto-resoconto").innerHTML = resocontoHtml;
 
-        document.getElementById("modifica-btn").onclick = () => navigateTo("pageprinc");
-        document.getElementById("conferma-btn").onclick = () => navigateTo("pageqrcode");
-     }
+           document.getElementById("modifica-btn").onclick = () => navigateTo("pageprinc");
+           document.getElementById("conferma-btn").onclick = () => navigateTo("pageqrcode");
+       }
 
-     if (pageId === "pageqrcode") {
-        const hashmap = dataManager.getInstanceHashmap();
+       if (pageId === "pageqrcode") {
+           const hashmap = dataManager.getInstanceHashmap();
+           if (hashmap.isEmpty()) {
+               navigateTo("pageprinc");
+               return;
+           }
 
-        if (hashmap.isEmpty()) {
-           navigateTo("pageprinc");
-           return;
-        }
+           const obj = {
+               numeroTavolo: document.getElementById("tavolo").value,
+               cliente: document.getElementById("nomecliente").value,
+               coperti: document.getElementById("coperti").value,
+               righe: hashmap.keys().map(id => ({
+                   id: parseInt(id),
+                   qta: hashmap.get(id)
+               }))
+           };
 
-        const obj = {
-           numeroTavolo: document.getElementById("tavolo").value,
-           cliente: document.getElementById("nomecliente").value,
-           coperti: document.getElementById("coperti").value,
-           righe: hashmap.keys().map(id => ({
-              id: parseInt(id),
-              qta: hashmap.get(id)
-           }))
-        };
+           const qrcodeElement = document.getElementById("qrcode");
+           qrcodeElement.innerHTML = "";
+           const qrcode = new QRCode(qrcodeElement, {
+               width: 100,
+               height: 100,
+               useSVG: true
+           });
 
-        const qrcodeElement = document.getElementById("qrcode");
-        qrcodeElement.innerHTML = "";
-        const qrcode = new QRCode(qrcodeElement, {
-           width: 100,
-           height: 100,
-           useSVG: true
-        });
+           const qrCodeManager = new QRCodeManager(qrcode);
+           qrCodeManager.clear();
+           qrCodeManager.makeQRCode(encodeURIComponent(JSON.stringify(obj)));
 
-        const qrCodeManager = new QRCodeManager(qrcode);
-        qrCodeManager.clear();
-        qrCodeManager.makeQRCode(encodeURIComponent(JSON.stringify(obj)));
+           document.getElementById("nuovo-ordine-btn").onclick = () => {
+               dataManager.saveInstanceHashmap(new HashMap());
+               navigateTo("pageprinc");
+           };
+       }
+   }
 
-        document.getElementById("nuovo-ordine-btn").onclick = () => {
-           dataManager.saveInstanceHashmap(new HashMap());
-           navigateTo("pageprinc");
-        };
-     }
+   // Bottone Vedi Resoconto
+   document.getElementById("resoconto-btn").addEventListener("click", () => {
+       navigateTo("pageresoconto");
+   });
 
-     $(`.ui-page-active`).removeClass("ui-page-active");
-     $(`#${pageId}`).addClass("ui-page-active").show();
-  }
-
-  // Bottone Vedi Resoconto
-  document.addEventListener("click", event => {
-     if (event.target && event.target.id === "resoconto-btn") {
-        navigateTo("pageresoconto");
-     }
-  });
-
-  // Bottone Elimina Ordine
-  document.addEventListener("click", event => {
-     if (event.target && event.target.id === "elimina-ordine-btn") {
-        const hashmap = dataManager.getInstanceHashmap();
-        if (!hashmap.isEmpty()) {
+   // Bottone Elimina Ordine
+   document.getElementById("elimina-ordine-btn").addEventListener("click", () => {
+       const hashmap = dataManager.getInstanceHashmap();
+       if (!hashmap.isEmpty()) {
            hashmap.makeEmpty();
            dataManager.saveInstanceHashmap(hashmap);
 
@@ -96,16 +91,22 @@ document.addEventListener("DOMContentLoaded", async () => {
            const elencoPietanze = dataManager.getElencoPietanze();
 
            for (const tipo of elencoPrincipale) {
-              const pietanze = elencoPietanze[tipo];
-              for (const p of pietanze) {
-                 const quantitaEl = document.getElementById("quantita" + p.id);
-                 if (quantitaEl) quantitaEl.textContent = "0";
-              }
+               const pietanze = elencoPietanze[tipo];
+               for (const p of pietanze) {
+                   const quantitaEl = document.getElementById("quantita" + p.id);
+                   if (quantitaEl) quantitaEl.textContent = "0";
+               }
            }
-        }
+       }
 
-        graphicManager.generatePopup("popup-ordine", { value: true, state: 1 });
-        document.getElementById("popup-ordine").style.display = "block";
-     }
-  });
+       graphicManager.generatePopup("Ordine eliminato");
+   });
+
+   // Gestione apertura/chiusura accordion
+   document.addEventListener("click", function (e) {
+       if (e.target.classList.contains("accordion-toggle")) {
+           const content = e.target.nextElementSibling;
+           content.style.display = content.style.display === "block" ? "none" : "block";
+       }
+   });
 });
