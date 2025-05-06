@@ -48,39 +48,43 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       if (pageId === "pageqrcode") {
-         const hashmap = dataManager.getInstanceHashmap();
-         if (hashmap.isEmpty()) {
-            navigateTo("pageprinc");
-            return;
-         }
+           // Pulisce i residui del resoconto
+           document.getElementById("contenuto-resoconto").innerHTML = "";
 
-         const obj = {
-            numeroTavolo: document.getElementById("tavolo").value,
-            cliente: document.getElementById("nomecliente").value,
-            coperti: document.getElementById("coperti").value,
-            righe: hashmap.keys().map(id => ({
-               id: parseInt(id),
-               qta: hashmap.get(id)
-            }))
-         };
+           const hashmap = dataManager.getInstanceHashmap();
+           if (hashmap.isEmpty()) {
+               navigateTo("pageprinc");
+               return;
+           }
 
-         const qrcodeElement = document.getElementById("qrcode");
-         qrcodeElement.innerHTML = "";
-         const qrcode = new QRCode(qrcodeElement, {
-            width: 100,
-            height: 100,
-            useSVG: true
-         });
+           const obj = {
+               numeroTavolo: document.getElementById("tavolo").value,
+               cliente: document.getElementById("nomecliente").value,
+               coperti: document.getElementById("coperti").value,
+               righe: hashmap.keys().map(id => ({
+                   id: parseInt(id),
+                   qta: hashmap.get(id)
+               }))
+           };
 
-         const qrCodeManager = new QRCodeManager(qrcode);
-         qrCodeManager.clear();
-         qrCodeManager.makeQRCode(encodeURIComponent(JSON.stringify(obj)));
+           const qrcodeElement = document.getElementById("qrcode");
+           qrcodeElement.innerHTML = "";
+           const qrcode = new QRCode(qrcodeElement, {
+               width: 100,
+               height: 100,
+               useSVG: true
+           });
 
-         document.getElementById("nuovo-ordine-btn").onclick = () => {
-            dataManager.saveInstanceHashmap(new HashMap());
-            navigateTo("pageprinc");
-         };
-      }
+           const qrCodeManager = new QRCodeManager(qrcode);
+           qrCodeManager.clear();
+           qrCodeManager.makeQRCode(encodeURIComponent(JSON.stringify(obj)));
+
+           document.getElementById("nuovo-ordine-btn").onclick = () => {
+               dataManager.saveInstanceHashmap(new HashMap());
+               navigateTo("pageprinc");
+           };
+        }
+
    }
 
    // Bottone Vedi Resoconto
