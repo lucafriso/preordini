@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", async () => {
            // Pulisce i residui del resoconto
            document.getElementById("contenuto-resoconto").innerHTML = "";
 
+           document.getElementById("modifica-btn").style.display = "none";
+           document.getElementById("conferma-btn").style.display = "none";
+
+
            const hashmap = dataManager.getInstanceHashmap();
            if (hashmap.isEmpty()) {
                navigateTo("pageprinc");
