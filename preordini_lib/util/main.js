@@ -3,110 +3,118 @@ document.addEventListener("DOMContentLoaded", async () => {
    const dataManager = new Data();
 
    try {
-       await dataManager.loadJsonMenu();
-       navigateTo("pageprinc");
+      await dataManager.loadJsonMenu();
+      navigateTo("pageprinc");
    } catch (error) {
-       console.error("Errore nel caricamento del menu:", error);
+      console.error("Errore nel caricamento del menu:", error);
    }
 
    function navigateTo(pageId) {
-       document.querySelectorAll(".ui-page").forEach(p => p.classList.remove("ui-page-active"));
-       document.getElementById(pageId).classList.add("ui-page-active");
+      // Nasconde tutte le pagine
+      document.querySelectorAll(".ui-page").forEach(p => {
+         p.classList.remove("ui-page-active");
+         p.style.display = "none";
+      });
 
-       if (pageId === "pageprinc") {
-           const lista = document.getElementById("lista");
-           lista.innerHTML = graphicManager.generateMenu(dataManager.getInstanceHashmap());
-           graphicManager.setButtonPlusMinus(dataManager.getInstanceHashmap());
-       }
+      // Mostra solo quella selezionata
+      const targetPage = document.getElementById(pageId);
+      targetPage.classList.add("ui-page-active");
+      targetPage.style.display = "block";
 
-       if (pageId === "pageresoconto") {
-           const hashmap = dataManager.getInstanceHashmap();
-           if (hashmap.isEmpty()) {
-               graphicManager.generatePopup("Nessuna pietanza selezionata");
-               return;
-           }
+      if (pageId === "pageprinc") {
+         const lista = document.getElementById("lista");
+         lista.innerHTML = graphicManager.generateMenu(dataManager.getInstanceHashmap());
+         graphicManager.setButtonPlusMinus(dataManager.getInstanceHashmap());
+      }
 
-           const dict = {
-               nomecliente: document.getElementById("nomecliente").value,
-               coperti: document.getElementById("coperti").value,
-               tavolo: document.getElementById("tavolo").value
-           };
+      if (pageId === "pageresoconto") {
+         const hashmap = dataManager.getInstanceHashmap();
+         if (hashmap.isEmpty()) {
+            graphicManager.generatePopup("Nessuna pietanza selezionata");
+            return;
+         }
 
-           const resocontoHtml = graphicManager.generateResoconto(hashmap, dict);
-           document.getElementById("contenuto-resoconto").innerHTML = resocontoHtml;
+         const dict = {
+            nomecliente: document.getElementById("nomecliente").value,
+            coperti: document.getElementById("coperti").value,
+            tavolo: document.getElementById("tavolo").value
+         };
 
-           document.getElementById("modifica-btn").onclick = () => navigateTo("pageprinc");
-           document.getElementById("conferma-btn").onclick = () => navigateTo("pageqrcode");
-       }
+         const resocontoHtml = graphicManager.generateResoconto(hashmap, dict);
+         document.getElementById("contenuto-resoconto").innerHTML = resocontoHtml;
 
-       if (pageId === "pageqrcode") {
-           const hashmap = dataManager.getInstanceHashmap();
-           if (hashmap.isEmpty()) {
-               navigateTo("pageprinc");
-               return;
-           }
+         document.getElementById("modifica-btn").onclick = () => navigateTo("pageprinc");
+         document.getElementById("conferma-btn").onclick = () => navigateTo("pageqrcode");
+      }
 
-           const obj = {
-               numeroTavolo: document.getElementById("tavolo").value,
-               cliente: document.getElementById("nomecliente").value,
-               coperti: document.getElementById("coperti").value,
-               righe: hashmap.keys().map(id => ({
-                   id: parseInt(id),
-                   qta: hashmap.get(id)
-               }))
-           };
+      if (pageId === "pageqrcode") {
+         const hashmap = dataManager.getInstanceHashmap();
+         if (hashmap.isEmpty()) {
+            navigateTo("pageprinc");
+            return;
+         }
 
-           const qrcodeElement = document.getElementById("qrcode");
-           qrcodeElement.innerHTML = "";
-           const qrcode = new QRCode(qrcodeElement, {
-               width: 100,
-               height: 100,
-               useSVG: true
-           });
+         const obj = {
+            numeroTavolo: document.getElementById("tavolo").value,
+            cliente: document.getElementById("nomecliente").value,
+            coperti: document.getElementById("coperti").value,
+            righe: hashmap.keys().map(id => ({
+               id: parseInt(id),
+               qta: hashmap.get(id)
+            }))
+         };
 
-           const qrCodeManager = new QRCodeManager(qrcode);
-           qrCodeManager.clear();
-           qrCodeManager.makeQRCode(encodeURIComponent(JSON.stringify(obj)));
+         const qrcodeElement = document.getElementById("qrcode");
+         qrcodeElement.innerHTML = "";
+         const qrcode = new QRCode(qrcodeElement, {
+            width: 100,
+            height: 100,
+            useSVG: true
+         });
 
-           document.getElementById("nuovo-ordine-btn").onclick = () => {
-               dataManager.saveInstanceHashmap(new HashMap());
-               navigateTo("pageprinc");
-           };
-       }
+         const qrCodeManager = new QRCodeManager(qrcode);
+         qrCodeManager.clear();
+         qrCodeManager.makeQRCode(encodeURIComponent(JSON.stringify(obj)));
+
+         document.getElementById("nuovo-ordine-btn").onclick = () => {
+            dataManager.saveInstanceHashmap(new HashMap());
+            navigateTo("pageprinc");
+         };
+      }
    }
 
    // Bottone Vedi Resoconto
    document.getElementById("resoconto-btn").addEventListener("click", () => {
-       navigateTo("pageresoconto");
+      navigateTo("pageresoconto");
    });
 
    // Bottone Elimina Ordine
    document.getElementById("elimina-ordine-btn").addEventListener("click", () => {
-       const hashmap = dataManager.getInstanceHashmap();
-       if (!hashmap.isEmpty()) {
-           hashmap.makeEmpty();
-           dataManager.saveInstanceHashmap(hashmap);
+      const hashmap = dataManager.getInstanceHashmap();
+      if (!hashmap.isEmpty()) {
+         hashmap.makeEmpty();
+         dataManager.saveInstanceHashmap(hashmap);
 
-           const elencoPrincipale = dataManager.getElencoPrincipale();
-           const elencoPietanze = dataManager.getElencoPietanze();
+         const elencoPrincipale = dataManager.getElencoPrincipale();
+         const elencoPietanze = dataManager.getElencoPietanze();
 
-           for (const tipo of elencoPrincipale) {
-               const pietanze = elencoPietanze[tipo];
-               for (const p of pietanze) {
-                   const quantitaEl = document.getElementById("quantita" + p.id);
-                   if (quantitaEl) quantitaEl.textContent = "0";
-               }
-           }
-       }
+         for (const tipo of elencoPrincipale) {
+            const pietanze = elencoPietanze[tipo];
+            for (const p of pietanze) {
+               const quantitaEl = document.getElementById("quantita" + p.id);
+               if (quantitaEl) quantitaEl.textContent = "0";
+            }
+         }
+      }
 
-       graphicManager.generatePopup("Ordine eliminato");
+      graphicManager.generatePopup("Ordine eliminato");
    });
 
    // Gestione apertura/chiusura accordion
    document.addEventListener("click", function (e) {
-       if (e.target.classList.contains("accordion-toggle")) {
-           const content = e.target.nextElementSibling;
-           content.style.display = content.style.display === "block" ? "none" : "block";
-       }
+      if (e.target.classList.contains("accordion-toggle")) {
+         const content = e.target.nextElementSibling;
+         content.style.display = content.style.display === "block" ? "none" : "block";
+      }
    });
 });
