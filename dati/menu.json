@@ -2,221 +2,265 @@
   {
     "categoria": "Primi",
     "piatto": "gnocchi al pomodoro",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 1
   },
   {
     "categoria": "Primi",
     "piatto": "gnocchi al ragù",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 2
   },
   {
     "categoria": "Primi",
     "piatto": "gnocchi al ragù d'anatra",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 3
   },
   {
     "categoria": "Primi",
     "piatto": "gnocchi al ragù di cinghiale",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 4
   },
   {
     "categoria": "Primi",
     "piatto": "penne al pomodoro",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 5
   },
   {
     "categoria": "Primi",
     "piatto": "penne al ragù",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 6
   },
   {
     "categoria": "Primi",
     "piatto": "penne al ragù d'anatra",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 7
   },
   {
     "categoria": "Primi",
     "piatto": "penne al ragù di cinghiale",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 8
   },
   {
     "categoria": "Primi",
     "piatto": "bigoli al pomodoro",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 9
   },
   {
     "categoria": "Primi",
     "piatto": "bigoli al ragù",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 10
   },
   {
     "categoria": "Primi",
     "piatto": "bigoli al ragù d'anatra",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 11
   },
   {
     "categoria": "Primi",
     "piatto": "bigoli al ragù di cinghiale",
-    "prezzo": 6.5
+    "prezzo": 6.5,
+    "id": 12
   },
   {
     "categoria": "Primi",
     "piatto": "bigoli porcini e salsiccia",
-    "prezzo": 7.0
+    "prezzo": 7.0,
+    "id": 13
   },
   {
     "categoria": "Secondi",
     "piatto": "carne salada",
-    "prezzo": 9.5
+    "prezzo": 9.5,
+    "id": 14
   },
   {
     "categoria": "Secondi",
     "piatto": "piatto freddo",
-    "prezzo": 9.5
+    "prezzo": 9.5,
+    "id": 15    
   },
   {
     "categoria": "Secondi",
     "piatto": "1/2 galletto",
-    "prezzo": 7.0
+    "prezzo": 7.0,
+    "id": 16
   },
   {
     "categoria": "Secondi",
     "piatto": "ossetti",
-    "prezzo": 9.0
+    "prezzo": 9.0,
+    "id": 17
   },
   {
     "categoria": "Secondi",
     "piatto": "salsicce ai ferri",
-    "prezzo": 8.0
+    "prezzo": 8.0,
+    "id": 18
   },
   {
     "categoria": "Secondi",
     "piatto": "grigliata mista",
-    "prezzo": 9.0
+    "prezzo": 9.0,
+    "id": 19
   },
   {
     "categoria": "Secondi",
     "piatto": "bistecca di cavallo",
-    "prezzo": 10.0
+    "prezzo": 10.0,
+    "id": 20
   },
   {
     "categoria": "Secondi",
     "piatto": "tagliata di cavallo",
-    "prezzo": 10.0
+    "prezzo": 10.0,
+    "id": 20
   },
   {
     "categoria": "Secondi",
     "piatto": "spezzatino di cinghiale",
-    "prezzo": 10.0
+    "prezzo": 10.0,
+    "id": 21
   },
   {
     "categoria": "Secondi",
     "piatto": "Tris di baccalà",
-    "prezzo": 10.0
+    "prezzo": 10.0,
+    "id": 20
   },
   {
     "categoria": "Secondi",
     "piatto": "formaggi misti",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 22
   },
   {
     "categoria": "Contorni",
     "piatto": "patatine fritte",
-    "prezzo": 2.5
+    "prezzo": 2.5,
+    "id": 23
   },
   {
     "categoria": "Contorni",
     "piatto": "fagioli con cipolla",
-    "prezzo": 2.5
+    "prezzo": 2.5,
+    "id": 24
   },
   {
     "categoria": "Contorni",
     "piatto": "fagioli",
-    "prezzo": 2.5
+    "prezzo": 2.5,
+    "id": 25  
   },
   {
     "categoria": "Contorni",
     "piatto": "insalata mista",
-    "prezzo": 2.5
+    "prezzo": 2.5, 
+    "id": 26
   },
   {
     "categoria": "Secondi",
     "piatto": "menù bambino",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 27  
   },
   {
     "categoria": "Aggiunte",
     "piatto": "aggiunta pane/polenta",
-    "prezzo": 0.5
+    "prezzo": 0.5,
+    "id": 28
   },
   {
     "categoria": "Vino",
     "piatto": "rabosello 1L",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 29
   },
   {
     "categoria": "Vino",
     "piatto": "rabosello 1/2 litro",
-    "prezzo": 3.0
+    "prezzo": 3.0,
+    "id": 30
   },
   {
     "categoria": "Vino",
     "piatto": "prosecco 1L",
-    "prezzo": 6.0
+    "prezzo": 6.0,
+    "id": 31
   },
   {
     "categoria": "Vino",
     "piatto": "prosecco 1/2",
-    "prezzo": 3.0
+    "prezzo": 3.0,
+    "id": 30
   },
   {
     "categoria": "Vino",
     "piatto": "rosso da pasto 1L",
-    "prezzo": 5.0
+    "prezzo": 5.0,
+    "id": 31  
   },
   {
     "categoria": "Vino",
     "piatto": "rosso da pasto 1/2",
-    "prezzo": 2.5
+    "prezzo": 2.5,
+    "id": 32
   },
   {
     "categoria": "Bibite",
     "piatto": "acqua gas",
-    "prezzo": 1.0
+    "prezzo": 1.0,
+    "id": 33
   },
   {
     "categoria": "Bibite",
     "piatto": "acqua nat",
-    "prezzo": 1.0
+    "prezzo": 1.0,
+    "id": 34
   },
   {
     "categoria": "Bibite",
     "piatto": "birra alla spina",
-    "prezzo": 3.0
+    "prezzo": 3.0,
+    "id": 35
   },
   {
     "categoria": "Bibite",
     "piatto": "coca",
-    "prezzo": 2.0
+    "prezzo": 2.0,
+    "id": 36
   },
   {
     "categoria": "Bibite",
     "piatto": "fanta",
-    "prezzo": 2.0
+    "prezzo": 2.0,
+    "id": 37  
   },
   {
     "categoria": "Bibite",
     "piatto": "the",
-    "prezzo": 2.0
+    "prezzo": 2.0,
+    "id": 38
   },
   {
     "categoria": "Secondi",
     "piatto": "Tagliata di bufala",
-    "prezzo": 10.0
+    "prezzo": 10.0,
+    "id": 39
   },
   {
     "categoria": "Contorni",
     "piatto": "Pomodori",
-    "prezzo": 2.5
+    "prezzo": 2.5,
+    "id": 40
   }
 ]
