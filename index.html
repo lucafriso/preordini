@@ -2,76 +2,67 @@
 <html>
 <head>
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   
-   <link rel="stylesheet" href="preordini_lib/jquery/jquery.mobile-1.4.5.min.css">
-   <link rel="stylesheet" href="preordini_lib/themes/color-theme.min.css" />
-   <link rel="stylesheet" href="preordini_lib/themes/jquery.mobile.icons.min.css" />
+   <meta charset="UTF-8" />
+
+   <!-- Librerie -->
    <link rel="stylesheet" href="preordini_lib/util/css.css" />
-   
-   <script src="preordini_lib/jquery/jquery-1.11.3.min.js"></script>
-   <script src="preordini_lib/jquery/jquery.mobile-1.4.5.min.js"></script>
    <script src="preordini_lib/qrcode/qrcode.js"></script>
    <script src="preordini_lib/qrcode/qrcodemanager.js"></script>
-   
    <script src="preordini_lib/util/data.js"></script>
    <script src="preordini_lib/util/hashmap.js"></script>
    <script src="preordini_lib/util/graphicManager.js"></script>
    <script src="preordini_lib/util/main.js"></script>
+
+   <!-- Stile per gestione visibilità pagine -->
+   <style>
+      .ui-page {
+         display: none;
+      }
+
+      .ui-page-active {
+         display: block !important;
+      }
+
+      .ui-footer, .ui-header, .ui-content {
+         padding: 10px;
+      }
+   </style>
 </head>
+
 <body>
 
 <!-- Pagina principale -->
-<div data-role="page" data-theme="b" id="pageprinc">
-   <div data-role="header">
-      <h1>Men&ugrave;</h1>
+<div class="ui-page" id="pageprinc">
+   <div class="ui-header">
+      <h1>Menù</h1>
    </div>
 
-   <div data-role="main" class="ui-content">
-      <div id="lista" data-role="collapsible-set"></div>
+   <div class="ui-content">
+      <div id="lista"></div>
       <button class="ui-btn green-btn" id="resoconto-btn">Vedi resoconto</button>
       <button class="ui-btn red-btn" id="elimina-ordine-btn">Elimina ordine</button>
    </div>
 
-   <div data-role="footer">
+   <div class="ui-footer">
       <h4>Giovani di Dese + UP Codevigo</h4>
    </div>
 
-   <div data-role="popup" id="popup-ordine" data-position-to="window" data-transition="pop">
-      <div data-role="header">
-         <h1 id="title-popup"></h1>
-      </div>
-      <div data-role="main" class="ui-content" id="content-ordine-popup">
+   <div id="popup-ordine" style="display: none;">
+      <div class="ui-header"><h1 id="title-popup"></h1></div>
+      <div class="ui-content" id="content-ordine-popup">
          <div id="info-ordine-popup"></div>
       </div>
    </div>
-</div> 
-
-<!-- Pagina QR Code -->
-<div data-role="page" data-theme="b" id="pageqrcode">
-   <div data-role="header">
-      <h1>Ordine</h1>
-   </div>
-
-   <div data-role="main" class="ui-content" id="content-qrcode">
-      <h4>Presenta questo alla cassa e il tuo ordine sar&agrave; pronto</h4>
-      <div id="qrcode"></div>
-      <button class="ui-btn blue-btn" id="nuovo-ordine-btn">Nuovo Ordine</button>
-   </div>
-
-   <div data-role="footer">
-      <h4>Giovani di Dese + UP Codevigo</h4>
-   </div>
 </div>
 
-<!-- Nuova pagina Riepilogo Ordine -->
-<div data-role="page" data-theme="b" id="pageresoconto">
-   <div data-role="header">
+<!-- Pagina Riepilogo Ordine -->
+<div class="ui-page" id="pageresoconto">
+   <div class="ui-header">
       <h1>Riepilogo Ordine</h1>
    </div>
 
-   <div data-role="main" class="ui-content" id="contenuto-resoconto">
-      <!-- Il contenuto del riepilogo verrà inserito via JS -->
+   <div class="ui-content" id="contenuto-resoconto">
+      <!-- Contenuto generato dinamicamente -->
    </div>
 
    <div class="ui-content">
@@ -79,7 +70,24 @@
       <button class="ui-btn green-btn" id="conferma-btn">Conferma Ordine</button>
    </div>
 
-   <div data-role="footer">
+   <div class="ui-footer">
+      <h4>Giovani di Dese + UP Codevigo</h4>
+   </div>
+</div>
+
+<!-- Pagina QR Code -->
+<div class="ui-page" id="pageqrcode">
+   <div class="ui-header">
+      <h1>Ordine</h1>
+   </div>
+
+   <div class="ui-content" id="content-qrcode">
+      <h4>Presenta questo alla cassa e il tuo ordine sarà pronto</h4>
+      <div id="qrcode"></div>
+      <button class="ui-btn blue-btn" id="nuovo-ordine-btn">Nuovo Ordine</button>
+   </div>
+
+   <div class="ui-footer">
       <h4>Giovani di Dese + UP Codevigo</h4>
    </div>
 </div>
