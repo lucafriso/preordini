@@ -20,10 +20,10 @@ function Data() {
                     elencoPietanze[categoria] = [];
                 }
                 elencoPietanze[categoria].push({
-                    id: index,
+                    id: item.id,
                     nome: item.piatto,
                     prezzo: item.prezzo,
-                    posizione: index
+                    posizione: item.posizione || 0
                 });
             });
         } catch (error) {
