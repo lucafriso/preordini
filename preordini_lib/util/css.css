@@ -163,3 +163,13 @@
 #content-qrcode {
     text-align: center;
 }
+
+/* Input */
+input[type="text"],
+input[type="number"] {
+    font-size: 18px;        /* testo più grande */
+    padding: 10px;          /* più spazio interno */
+    width: 100%;            /* prende tutta la larghezza disponibile */
+    box-sizing: border-box; /* per evitare overflow */
+    margin-bottom: 10px;    /* spazio tra i campi */
+}
