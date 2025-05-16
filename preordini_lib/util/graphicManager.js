@@ -43,7 +43,7 @@ function GraphicManager() {
         let txtLista = `
             <div>
                 <input type='text' id='nomecliente' placeholder='Inserisci il tuo nome' class="ui-input-text"/>
-                <input type='text' id='tavolo' placeholder='Inserisci il numero del tavolo' class="ui-input-text"/>
+                <input type='number' id='tavolo' placeholder='Inserisci il numero del tavolo' class="ui-input-text"/>
                 <input type='number' id='coperti' placeholder='Quanti siete?' class="ui-input-text"/>
             </div>`;
 
