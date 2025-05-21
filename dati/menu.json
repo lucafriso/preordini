@@ -145,7 +145,7 @@
   },
   {
       "id": 66,
-      "piatto": "Tagliata di bufala",
+      "piatto": "Insalata di carne di bufala con verdure",
       "categoria": "Secondi",
       "prezzo": 10.0
   },
@@ -247,7 +247,7 @@
   },
   {
       "id": 83,
-      "piatto": "Pasticcio",
+      "piatto": "Pasticcio zucchine e stracciatella",
       "categoria": "Primi",
       "prezzo": 9.0
   }
