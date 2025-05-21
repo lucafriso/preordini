@@ -42,10 +42,10 @@ function GraphicManager() {
 
         let txtLista = `
             <div>
-                <p>*Campi obbligatori*</p>
-                <input type='text' id='nomecliente' placeholder='Inserisci il tuo nome' class="ui-input-text"/>
-                <input type='number' id='tavolo' placeholder='Inserisci il numero del tavolo' class="ui-input-text"/>
-                <input type='number' id='coperti' placeholder='Quanti siete?' class="ui-input-text"/>
+                <p style="color: darkgray;">*Campi obbligatori*</p>
+                <input type='text' id='nomecliente' placeholder='Inserisci il tuo nome*' class="ui-input-text"/>
+                <input type='number' id='tavolo' placeholder='Inserisci il numero del tavolo*' class="ui-input-text"/>
+                <input type='number' id='coperti' placeholder='Quanti siete?*' class="ui-input-text"/>
             </div>`;
 
         elencoPrincipale.forEach(categoria => {
