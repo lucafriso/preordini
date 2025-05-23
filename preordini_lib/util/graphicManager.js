@@ -121,6 +121,19 @@ function GraphicManager() {
                    </div>`;
             }
         });
+
+        // Aggiunta del costo coperto (1€ per ogni persona)
+        const coperti = parseInt(dict.coperti) || 0;
+        const costoCoperto = coperti * 1;
+        totale += costoCoperto;
+
+        txtResoconto += `
+       <div class="content-pietanza-ordine">
+          <div class="left nome-pietanza">Coperto</div>
+          <div class="center prezzo-pietanza-ordine">${costoCoperto.toFixed(2)}€</div>
+          <div class="right">${coperti}</div>
+          <div class="endBlock"></div>
+       </div>`;
     
         txtResoconto += `
            <div class="content-totale-ordine-riepilogo">
