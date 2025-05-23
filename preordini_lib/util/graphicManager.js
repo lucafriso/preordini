@@ -85,8 +85,8 @@ function GraphicManager() {
     };
  
     this.generateResoconto = function (hashmap, dict) {
-        const elencoPietanze = dataManager.getElencoPietanze();
- 
+    const elencoPietanze = dataManager.getElencoPietanze();
+
         function getPietanzaById(id) {
             for (const tipo in elencoPietanze) {
                 const pietanze = elencoPietanze[tipo];
@@ -95,28 +95,38 @@ function GraphicManager() {
             }
             return null;
         }
- 
+    
         let txtResoconto = `
           <div>
              <h3>Nome cliente: ${dict.nomecliente}</h3>
              <h3>Tavolo: ${dict.tavolo}</h3>
              <h3>Coperti: ${dict.coperti}</h3>
           </div>`;
- 
+    
+        let totale = 0;
+    
         hashmap.keys().forEach(id => {
             const pietanza = getPietanzaById(id);
             const quantita = hashmap.get(id);
             if (pietanza) {
+                const subtotale = pietanza.prezzo * quantita;
+                totale += subtotale;
+    
                 txtResoconto += `
                    <div class="content-pietanza-ordine">
                       <div class="left nome-pietanza">${pietanza.nome}</div>
-                      <div class="center prezzo-pietanza-ordine">${(pietanza.prezzo * quantita).toFixed(2)}€</div>
+                      <div class="center prezzo-pietanza-ordine">${subtotale.toFixed(2)}€</div>
                       <div class="right">${quantita}</div>
                       <div class="endBlock"></div>
                    </div>`;
             }
         });
- 
+    
+        txtResoconto += `
+           <div class="content-totale-ordine-riepilogo">
+              <h3 style="text-align:right;">Totale: ${totale.toFixed(2)}€</h3>
+           </div>`;
+    
         return txtResoconto;
     };
  }
