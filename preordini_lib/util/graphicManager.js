@@ -50,7 +50,7 @@ function GraphicManager() {
 
         elencoPrincipale.forEach(categoria => {
             const pietanze = elencoPietanze[categoria];
-            const categoriaId = `cat_${categoria.replace(/\s+/g, '_').toLowerCase()}`;
+            const categoriaId = `cat_${categoria}`;
 
             txtLista += `
                 <button class="accordion-toggle" onclick="toggleCategoria('${categoriaId}')">${categoria}</button>
