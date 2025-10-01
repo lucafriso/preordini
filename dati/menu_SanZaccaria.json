@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "piatto": "Pennette al pomodoro",
+    "prezzo": 6.0,
+    "categoria": "Primo"
+  },
+  {
+    "id": 2,
+    "piatto": "Pennette al ragù di carne",
+    "prezzo": 6.5,
+    "categoria": "Primo"
+  },
+  {
+    "id": 3,
+    "piatto": "Pennette al ragù d'anatra",
+    "prezzo": 6.5,
+    "categoria": "Primo"
+  },
+  {
+    "id": 5,
+    "piatto": "Grigliata mista (2 costine, 1 salsiccia, 1 pancetta con 1 polenta)",
+    "prezzo": 9.0,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 6,
+    "piatto": "Coca Cola (barattolo da 33 cl)",
+    "prezzo": 2.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 7,
+    "piatto": "Acqua frizzante ½ l",
+    "prezzo": 1.0,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 9,
+    "piatto": "Pennette salsiccia e funghi",
+    "prezzo": 6.5,
+    "categoria": "Primo"
+  },
+  {
+    "id": 10,
+    "piatto": "Patatine fritte",
+    "prezzo": 3.5,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 11,
+    "piatto": "Gnocchi al pomodoro",
+    "prezzo": 6.5,
+    "categoria": "Primo"
+  },
+  {
+    "id": 12,
+    "piatto": "Gnocchi al ragù di carne",
+    "prezzo": 7.0,
+    "categoria": "Primo"
+  },
+  {
+    "id": 13,
+    "piatto": "Gnocchi salsiccia e funghi",
+    "prezzo": 7.0,
+    "categoria": "Primo"
+  },
+  {
+    "id": 14,
+    "piatto": "Gnocchi al ragù d'anatra",
+    "prezzo": 7.0,
+    "categoria": "Primo"
+  },
+  {
+    "id": 15,
+    "piatto": "Bigoli al pomodoro",
+    "prezzo": 6.5,
+    "categoria": "Primo"
+  },
+  {
+    "id": 16,
+    "piatto": "Bigoli al ragù di carne",
+    "prezzo": 7.0,
+    "categoria": "Primo"
+  },
+  {
+    "id": 17,
+    "piatto": "Bigoli salsiccia e funghi",
+    "prezzo": 7.0,
+    "categoria": "Primo"
+  },
+  {
+    "id": 18,
+    "piatto": "Bigoli al ragù d'anatra",
+    "prezzo": 7.0,
+    "categoria": "Primo"
+  },
+  {
+    "id": 19,
+    "piatto": "Frittura mista di pesce (con 1 polenta)",
+    "prezzo": 12.5,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 20,
+    "piatto": "Baccalà alla vicentina (con 2 fette di polenta)",
+    "prezzo": 11.5,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 21,
+    "piatto": "Spezzatino di cavallo (con 2 fette di polenta)",
+    "prezzo": 9.5,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 22,
+    "piatto": "Bistecca di cavallo (con 1 polenta)",
+    "prezzo": 9.5,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 23,
+    "piatto": "Polletto alla griglia (con 1 polenta)",
+    "prezzo": 9.0,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 24,
+    "piatto": "Piatto San Zaccaria (radicchio, pancetta e grana con 1 polenta)",
+    "prezzo": 7.5,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 25,
+    "piatto": "Costine (4 costine con 1 polenta)",
+    "prezzo": 8.5,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 26,
+    "piatto": "Salsicce  (2 salsicce con 1 polenta)",
+    "prezzo": 8.0,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 27,
+    "piatto": "Salame ai ferri (4 fette di salame con 1 polenta)",
+    "prezzo": 8.0,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 28,
+    "piatto": "Piatto baby  (Würstel con patatine fritte)",
+    "prezzo": 6.0,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 29,
+    "piatto": "Fagioli con cipolla",
+    "prezzo": 3.0,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 30,
+    "piatto": "Fagioli in tocio",
+    "prezzo": 3.0,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 31,
+    "piatto": "Insalata mista",
+    "prezzo": 3.0,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 32,
+    "piatto": "Aggiunta polenta (2 fette di polenta)",
+    "prezzo": 0.5,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 33,
+    "piatto": "Aggiunta pane",
+    "prezzo": 0.5,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 34,
+    "piatto": "Fanta (barattolo da 33 cl)",
+    "prezzo": 2.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 35,
+    "piatto": "Thè al limone (barattolo 33 cl)",
+    "prezzo": 2.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 36,
+    "piatto": "Thè alla pesca (barattolo 33 cl)",
+    "prezzo": 2.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 37,
+    "piatto": "Acqua naturale ½ l",
+    "prezzo": 1.0,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 38,
+    "piatto": "Birra piccola",
+    "prezzo": 3.0,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 39,
+    "piatto": "Birra media",
+    "prezzo": 4.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 41,
+    "piatto": "Prosecco ¼ l",
+    "prezzo": 2.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 42,
+    "piatto": "Prosecco ½ l ",
+    "prezzo": 4.0,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 43,
+    "piatto": "Prosecco 1 l",
+    "prezzo": 6.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 45,
+    "piatto": "Rosso da tavola ¼ l",
+    "prezzo": 2.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 46,
+    "piatto": "Rosso da tavola ½ l ",
+    "prezzo": 4.0,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 47,
+    "piatto": "Rosso da tavola 1 l",
+    "prezzo": 6.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 49,
+    "piatto": "Rabosello ¼ l",
+    "prezzo": 2.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 50,
+    "piatto": "Rabosello ½ l ",
+    "prezzo": 4.5,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 51,
+    "piatto": "Rabosello 1 l",
+    "prezzo": 7.0,
+    "categoria": "Bibite"
+  },
+  {
+    "id": 53,
+    "piatto": "Aggiunta generica",
+    "prezzo": 1.0,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 54,
+    "piatto": "Aggiunta generica 2€",
+    "prezzo": 2.0,
+    "categoria": "Contorni"
+  },
+  {
+    "id": 55,
+    "piatto": "Bollito misto (2 fette di cotechino, 2 di lingua e 2 di manzo, purè, sottoaceti e pane. Cren a richiesta)",
+    "prezzo": 14.0,
+    "categoria": "Secondi"
+  },
+  {
+    "id": 56,
+    "piatto": "Tagliata di petto d'anatra con patate al forno",
+    "prezzo": 12.5,
+    "categoria": "Secondi"
+  }
+]
