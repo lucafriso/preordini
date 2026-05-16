@@ -62,12 +62,12 @@ body {
    padding-top: 12px;
 }
 
-.app-logo {
-   display: block;
-   width: min(95vw, 520px);
-   max-width: 100%;
-   height: auto;
-   margin: 8px auto 14px;
+@media (max-width: 520px) {
+   .app-logo {
+      width: 98vw;
+      max-width: none;
+      margin-top: 4px;
+   }
 }
 
 .app-header h1 {
