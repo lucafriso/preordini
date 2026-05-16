@@ -64,9 +64,10 @@ body {
 
 .app-logo {
    display: block;
-   width: min(92%, 430px);
+   width: min(95vw, 520px);
+   max-width: 100%;
    height: auto;
-   margin: 4px auto 8px;
+   margin: 8px auto 14px;
 }
 
 .app-header h1 {
