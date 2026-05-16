@@ -360,7 +360,9 @@ input:focus {
    min-height: 240px;
 }
 
-#qrcode canvas,
+#qrcode canvas{
+   image-rendering: pixelated;
+},
 #qrcode img,
 #qrcode svg {
    width: min(280px, 100%) !important;
