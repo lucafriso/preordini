@@ -30,6 +30,7 @@ body {
       radial-gradient(circle at top left, rgba(63,142,252,0.16), transparent 34%),
       linear-gradient(180deg, #fffaf4 0%, var(--bg) 100%);
    color: var(--text);
+   overflow-x: hidden;
 }
 
 .app-shell {
@@ -56,18 +57,29 @@ body {
 .app-header {
    text-align: center;
    margin-bottom: 18px;
+   width: 100%;
+   overflow: hidden;
 }
 
 .app-header.compact {
    padding-top: 12px;
 }
 
-@media (max-width: 520px) {
-   .app-logo {
-      width: 98vw;
-      max-width: none;
-      margin-top: 4px;
-   }
+.app-logo{
+   display: block;
+   width: 100%;
+   max-width: 100%;
+   height: auto;
+
+   border-radius: 22px;
+
+   object-fit: cover;
+
+   margin: 0auto 14px auto;
+
+   box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+
+   aspect-ratio: 16 / 9 ;
 }
 
 .app-header h1 {
