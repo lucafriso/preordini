@@ -12,7 +12,7 @@
   {"id":11,"piatto":"Bigoli al ragù d'anatra","categoria":"Primi","prezzo":7},
   {"id":12,"piatto":"Bigoli al ragù di cinghiale","categoria":"Primi","prezzo":7},
   {"id":13,"piatto":"Bigoli porcini e salsiccia","categoria":"Primi","prezzo":7},
-  {"id":14,"piatto":"Pasticcio zucchine e stacciatella","categoria":"Primi","prezzo":9},
+  {"id":14,"piatto":"Spaghetti allo scoglio","categoria":"Primi","prezzo":10},
   {"id":15,"piatto":"Carne salada","categoria":"Secondi","prezzo":10},
   {"id":16,"piatto":"Piatto freddo","categoria":"Secondi","prezzo":9},
   {"id":17,"piatto":"Menù bambini","categoria":"Secondi","prezzo":6},
