@@ -24,7 +24,6 @@
   {"id":23,"piatto":"Tagliata di cavallo rucola e grana","categoria":"Secondi","prezzo":10},
   {"id":24,"piatto":"Spezzatino di cinghiale","categoria":"Secondi","prezzo":10},
   {"id":25,"piatto":"Tris di baccalà","categoria":"Secondi","prezzo":10},
-  {"id":26,"piatto":"Insalata di carne di bufala con verdure","categoria":"Secondi","prezzo":8},
   {"id":27,"piatto":"Formaggi misti","categoria":"Secondi","prezzo":6},
   {"id":28,"piatto":"Patatine fritte","categoria":"Contorni","prezzo":3},
   {"id":29,"piatto":"Fagioli con cipolla","categoria":"Contorni","prezzo":3},
